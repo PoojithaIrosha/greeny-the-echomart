@@ -11,8 +11,8 @@ if (isset($_COOKIE["email"])) {
     $checked = true;
 }
 
-if (isset($_COOKIE["pwd"])) {
-    $pwd = $_COOKIE["pwd"];
+if (isset($_COOKIE["password"])) {
+    $pwd = $_COOKIE["password"];
 }
 
 ?>
@@ -64,6 +64,9 @@ if (isset($_COOKIE["pwd"])) {
                             <p>or</p>
                         </div>
                         <div class="user-form">
+                            <div class="mb-2">
+                                <span id="err-msg" class="text-danger fw-bold" style="font-size: 13px"></span>
+                            </div>
                             <div class="form-group">
                                 <input id="email" type="email" class="form-control" placeholder="Enter your email"
                                        value="<?php echo $email; ?>">
@@ -72,11 +75,12 @@ if (isset($_COOKIE["pwd"])) {
                                 <input id="pwd" type="password" class="form-control" placeholder="Enter your password"
                                        value="<?php echo $pwd; ?>">
                             </div>
-                            <div class="form-check mb-3">
+                            <div class="form-check mb-1">
                                 <input id="rmb_me" class="form-check-input"
                                        type="checkbox" <?= $checked ? "checked" : "" ?>>
                                 <label class="form-check-label" for="rmb_me">Remember Me</label>
                             </div>
+
                             <div class="form-button">
                                 <button onclick="user_login()">login</button>
                                 <p>Forgot your password?<a href="reset-password.php">reset here</a></p>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "connection.php";
+require_once "MySQL.php";
 
 if ($_GET["id"]) {
     $id = $_GET["id"];

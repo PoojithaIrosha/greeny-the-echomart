@@ -1,10 +1,9 @@
 <?php
 
-require "connection.php";
+require "MySQL.php";
 
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
 use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\PHPMailer;
 
 require './assets/PHPMailer/Exception.php';
 require './assets/PHPMailer/PHPMailer.php';
@@ -12,7 +11,9 @@ require './assets/PHPMailer/SMTP.php';
 
 $email = $_GET["e"];
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if (empty($email)) {
+    echo "Please enter the email address";
+} else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
     echo "Invalid email address";
 } else {
 
@@ -54,7 +55,7 @@ if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                     <h2>Request for Password Change!</h2><br>
                     <p>If you forgot your password or wish to <span class="il">reset</span> it,<br>use below link to change
                         your password </p><br>
-                    <a href="http://localhost/pcjt/greeny/change-password.php?uid=' . $uid . '"
+                    <a href="http://localhost/greeny/change-password.php?uid=' . $uid . '"
                         style="width:180px;height:50px;background-color:#119744;padding: 15px 15px; text-align:center;color:white;text-decoration:none; font-size: 18px;font-weight: bold;"
                         target="_blank">
                         Reset Password

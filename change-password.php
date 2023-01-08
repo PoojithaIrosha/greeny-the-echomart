@@ -31,6 +31,9 @@
                         <p>Make sure your current password is strong</p>
                     </div>
                     <div class="user-form">
+                        <div class="mb-2">
+                            <span id="err-msg" class="text-danger fw-bold" style="font-size: 13px"></span>
+                        </div>
                         <div class="form-group">
                             <input id="new_pwd" type="password" class="form-control" placeholder="New password">
                         </div>

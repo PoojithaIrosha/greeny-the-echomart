@@ -1,6 +1,6 @@
 <?php
 
-require "connection.php";
+require "MySQL.php";
 $id = $_GET["id"];
 
 $rs = Database::search("SELECT * FROM `wishlist` WHERE `id` = '" . $id . "'");

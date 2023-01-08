@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require "connection.php";
+require "MySQL.php";
 
 $email = "";
 if (isset($_SESSION["user"])) {

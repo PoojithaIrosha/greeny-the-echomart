@@ -49,7 +49,7 @@ function user_login() {
             if (txt == "success") {
                 window.location = "index.php";
             } else {
-                alert(txt);
+                document.getElementById('err-msg').innerHTML = txt;
             }
         }
     };
@@ -85,7 +85,7 @@ function reset_password() {
                 document.getElementById("resetBtn").innerHTML = "Email Sent";
                 document.getElementById("resetBtn").setAttribute("disabled", "");
             } else {
-                alert(txt);
+                document.getElementById('err-msg').innerHTML = txt;
             }
         } else {
             document.getElementById("resetBtnLoading").classList.remove("d-none");
@@ -113,7 +113,7 @@ function update_password(uid) {
             if (txt == "success") {
                 window.location = "login.php";
             } else {
-                alert(txt);
+                document.getElementById('err-msg').innerHTML = txt;
             }
         }
     };
@@ -415,7 +415,11 @@ function update_user_details() {
     req.onreadystatechange = () => {
         if (req.readyState == 4) {
             let txt = req.responseText;
-            alert(txt);
+            if (txt == 'success') {
+                window.location.reload();
+            } else {
+                document.getElementById('err-msg').innerHTML = txt;
+            }
         }
     }
 

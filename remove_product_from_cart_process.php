@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "connection.php";
+require "MySQL.php";
 
 $pid = $_GET["pid"];
 $email = $_SESSION["user"]["email"];

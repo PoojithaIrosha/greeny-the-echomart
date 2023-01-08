@@ -1,6 +1,6 @@
 <?php
 
-require "./connection.php";
+require "./MySQL.php";
 
 $new_pwd = $_POST["new_pwd"];
 $r_pwd = $_POST["r_pwd"];

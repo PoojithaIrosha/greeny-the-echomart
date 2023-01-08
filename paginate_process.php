@@ -1,6 +1,6 @@
 <?php
 
-require_once "connection.php";
+require_once "MySQL.php";
 
 $page = $_GET["page"];
 $search = $_GET["search"];

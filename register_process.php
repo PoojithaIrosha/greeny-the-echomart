@@ -1,6 +1,6 @@
 <?php
 
-require "connection.php";
+require "MySQL.php";
 
 $fname = $_POST["fname"];
 $lname = $_POST["lname"];

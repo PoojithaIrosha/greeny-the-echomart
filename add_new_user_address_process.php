@@ -1,7 +1,7 @@
 <?php
 
 session_start();
-require_once 'connection.php';
+require_once 'MySQL.php';
 
 $email = $_SESSION["user"]["email"];
 $line1 = $_POST["line1"];

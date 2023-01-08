@@ -1,6 +1,6 @@
 <?php
 
-require "connection.php";
+require "MySQL.php";
 session_start();
 
 $review = $_POST["review"];

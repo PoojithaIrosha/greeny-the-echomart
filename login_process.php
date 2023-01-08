@@ -1,6 +1,6 @@
 <?php
 
-require "connection.php";
+require "MySQL.php";
 
 $email = $_POST["email"];
 $pwd = $_POST["pwd"];
@@ -27,10 +27,10 @@ if (empty($email)) {
 
             if ($rmb_me == "true") {
                 setcookie("email", $email, time() + (60 * 60));
-                setcookie("pwd", $pwd, time() + (60 * 60));
+                setcookie("password", $pwd, time() + (60 * 60));
             } else {
                 setcookie("email", "", -1);
-                setcookie("pwd", "", -1);
+                setcookie("password", "", -1);
             }
             echo "success";
         }

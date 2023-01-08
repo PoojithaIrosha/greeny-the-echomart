@@ -61,7 +61,7 @@ if (!isset($_SESSION["user"])) {
                     <div class="account-content">
                         <div class="row">
                             <?php
-                            require_once "connection.php";
+                            require_once "MySQL.php";
 
                             $email = $_SESSION["user"]["email"];
                             $user_rs = Database::search("SELECT * FROM user WHERE email = '${email}'");
@@ -321,6 +321,9 @@ if (!isset($_SESSION["user"])) {
             <div class="modal-form">
                 <div class="form-title">
                     <h3>edit profile info</h3>
+                </div>
+                <div class="mb-2">
+                    <span id="err-msg" class="text-danger fw-bold" style="font-size: 13px"></span>
                 </div>
                 <div class="form-group">
                     <label class="form-label">profile image</label>

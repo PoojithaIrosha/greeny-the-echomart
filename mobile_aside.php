@@ -151,7 +151,7 @@
 <!-- Cart -->
 <aside class="cart-sidebar" id="cart_sidebar">
     <?php
-    require_once "connection.php";
+    require_once "MySQL.php";
     session_start();
 
     $email = "";

@@ -155,7 +155,7 @@
 
             <?php
 
-            require_once "connection.php";
+            require_once "MySQL.php";
 
             $rs = Database::search("SELECT *, product.id AS `pid` , unit.`name` AS `unit_name` FROM `product` INNER JOIN `status` ON product.status_id = `status`.status_id INNER JOIN unit ON product.unit_id = unit.id LIMIT 10;");
             while ($data = $rs->fetch_assoc()) {

@@ -1,11 +1,11 @@
 <?php
-require_once "connection.php";
+require_once "MySQL.php";
 session_start();
 ?>
 
 <!-- Cart -->
 <?php
-require_once "connection.php";
+require_once "MySQL.php";
 session_start();
 
 $email = "";

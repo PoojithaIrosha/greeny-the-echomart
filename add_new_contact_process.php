@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once "connection.php";
+require_once "MySQL.php";
 
 $mobile = $_POST["mobile"];
 $type = $_POST["contact_type"];

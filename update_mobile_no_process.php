@@ -1,6 +1,6 @@
 <?php
 
-require_once "connection.php";
+require_once "MySQL.php";
 
 $cid = $_POST["c_id"];
 $mobile = $_POST["mobile"];

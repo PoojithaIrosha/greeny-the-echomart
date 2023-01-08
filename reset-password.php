@@ -36,6 +36,9 @@
                         <p>No Problem! Just Follow The Simple Way</p>
                     </div>
                     <div class="user-form">
+                        <div class="mb-2">
+                            <span id="err-msg" class="text-danger fw-bold" style="font-size: 13px"></span>
+                        </div>
                         <div class="form-group">
                             <input onchange="setActiveStatus()" id="email" type="email" class="form-control"
                                    placeholder="Enter your email">

@@ -1,5 +1,5 @@
 <?php
-require_once "connection.php";
+require_once "MySQL.php";
 session_start();
 if (isset($_SESSION["user"])) {
     $user = $_SESSION["user"];

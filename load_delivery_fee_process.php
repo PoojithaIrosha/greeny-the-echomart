@@ -1,5 +1,5 @@
 <?php
-require_once "connection.php";
+require_once "MySQL.php";
 
 if (isset($_GET["did"])) {
     $did = $_GET["did"];

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "connection.php";
+require "MySQL.php";
 
 $email = $_SESSION["user"]["email"];
 $action = $_POST["action"];

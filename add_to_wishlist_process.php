@@ -1,6 +1,6 @@
 <?php
 
-require_once "connection.php";
+require_once "MySQL.php";
 session_start();
 
 if (isset($_GET["pid"]) && isset($_SESSION["user"])) {

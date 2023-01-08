@@ -44,11 +44,13 @@ if (isset($_GET["pid"])) {
 <!-- mobile -->
 
 <?php
-$rs = Database::search("SELECT *, `brand`.`name` AS `brand_name`, `category`.`name` AS `category_name`, `unit`.`name` AS `unit_name` FROM `product` INNER JOIN `category` ON product.category_id = category.id INNER JOIN `brand` ON product.brand_id=brand.id INNER JOIN `status` ON product.status_id = `status`.status_id INNER JOIN unit ON product.unit_id = unit.id WHERE `product`.`id` = '" . $id . "' ");
+$rs = Database::search("SELECT *, `brand`.`name` AS `brand_name`, `category`.`name` AS `category_name`, `category`.`id` AS `category_id`, `unit`.`name` AS `unit_name` FROM `product` INNER JOIN `category` ON product.category_id = category.id INNER JOIN `brand` ON product.brand_id=brand.id INNER JOIN `status` ON product.status_id = `status`.status_id INNER JOIN unit ON product.unit_id = unit.id WHERE `product`.`id` = '" . $id . "' ");
+$categoryId = '';
 
 if ($rs->num_rows == 1) {
     $data = $rs->fetch_assoc();
 
+    $categoryId = $data['category_id'];
     ?>
     <!-- Top Bar -->
     <section class="single-banner inner-section"
@@ -302,216 +304,98 @@ if ($rs->num_rows == 1) {
 ?>
 
 
-<section class="inner-section">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="section-heading">
-                    <h2>related this items</h2>
+<?php
+$email = "";
+if (isset($_SESSION["user"]["email"])) {
+    $email = $_SESSION["user"]["email"];
+}
+
+$productsRs = Database::search("SELECT *, product.id AS `pid` , unit.`name` AS `unit_name` FROM `product` INNER JOIN `status` ON product.status_id = `status`.status_id INNER JOIN unit ON product.unit_id = unit.id WHERE `product`.`category_id` = '" . $categoryId . "' AND `product`.`id` <> '" . $id . "'");
+
+if ($productsRs->num_rows > 0) {
+    ?>
+    <section class="inner-section">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <div class="section-heading">
+                        <h2>related this items</h2>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+            <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
-            <!-- Product -->
-            <div class="col">
-                <div class="product-card">
-                    <div class="product-media">
-                        <div class="product-label">
-                            <label class="label-text new">new</label>
-                        </div>
-                        <button class="product-wish wish">
-                            <i class="fas fa-heart"></i>
-                        </button>
-                        <a class="product-image" href="product-video.html">
-                            <img src="assets/images/product/sweet_peper.jpg" alt="product"/>
-                        </a>
-                    </div>
-                    <div class="product-content">
-                        <!-- Ratings -->
-                        <div class="product-rating">
-                            <i class="active icofont-star"></i>
-                            <i class="active icofont-star"></i>
-                            <i class="active icofont-star"></i>
-                            <i class="active icofont-star"></i>
-                            <i class="icofont-star"></i>
-                        </div>
-                        <!-- Title -->
-                        <h6 class="product-name">
-                            <a href="product-view.html">fresh green chilis</a>
-                        </h6>
-                        <!-- Price -->
-                        <h6 class="product-price">
-                            <del>$34</del>
-                            <span>
-                                    $28
+                <?php
+                while ($productsData = $productsRs->fetch_assoc()) {
+                    ?>
+                    <!-- Product -->
+                    <div class="col">
+                        <div class="product-card">
+                            <div class="product-media">
+                                <div class="product-label">
+                                    <label class="label-text new">new</label>
+                                </div>
+
+                                <a class="product-image" href="product-view.php?pid=<?= $productsData["pid"] ?>">
+
+                                    <?php
+                                    $img_rs = Database::search("SELECT * FROM `product_images` WHERE `product_id` = '" . $productsData["pid"] . "' LIMIT 1");
+                                    $img_data = $img_rs->fetch_assoc();
+                                    ?>
+                                    <img src="<?= $img_data["code"] ?>" alt="product"/>
+                                </a>
+                            </div>
+                            <div class="product-content">
+                                <!--TODO: Add ratings-->
+                                <!-- Ratings -->
+                                <div class="product-rating">
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="active icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                    <i class="icofont-star"></i>
+                                </div>
+                                <!-- Title -->
+                                <h6 class="product-name">
+                                    <a href="product-view.php?pid=<?= $productsData["pid"] ?>"><?= $productsData["title"] ?></a>
+                                </h6>
+                                <!-- Price -->
+                                <h6 class="product-price d-flex flex-column align-items-center">
+                                    <del><?= "Rs." . number_format((($productsData["price"] / 100) * 25) + $productsData["price"]) ?></del>
+                                    <span>
+                                    <?= "Rs." . number_format($productsData["price"]) ?>
                                     <small>/piece</small>
                                 </span>
-                        </h6>
-                        <!-- Add Button -->
-                        <button class="product-add">
-                            <i class="fas fa-shopping-bag"></i>
-                            <span>Buy Now</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <!-- Product -->
-
-            <div class="col">
-                <div class="product-card">
-                    <div class="product-media">
-                        <div class="product-label"><label class="label-text sale">sale</label><label
-                                    class="label-text new">new</label></div>
-                        <button class="product-wish wish"><i class="fas fa-heart"></i></button>
-                        <a class="product-image" href="product-video.html"><img src="assets/images/product/02.jpg"
-                                                                                alt="product"></a>
-                        <div class="product-widget"><a title="Product Compare" href="compare.html"
-                                                       class="fas fa-random"></a><a title="Product Video"
-                                                                                    href="https://youtu.be/9xzcVxSBbG8"
-                                                                                    class="venobox fas fa-play"
-                                                                                    data-autoplay="true"
-                                                                                    data-vbtype="video"></a><a
-                                    title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal"
-                                    data-bs-target="#product-view"></a></div>
-                    </div>
-                    <div class="product-content">
-                        <div class="product-rating"><i class="active icofont-star"></i><i
-                                    class="active icofont-star"></i><i class="active icofont-star"></i><i
-                                    class="active icofont-star"></i><i class="icofont-star"></i><a
-                                    href="product-video.html">(3)</a></div>
-                        <h6 class="product-name"><a href="product-video.html">fresh green chilis</a></h6>
-                        <h6 class="product-price">
-                            <del>$34</del>
-                            <span>$28<small>/piece</small></span></h6>
-                        <button class="product-add" title="Add to Cart">
-                            <i class="fas fa-shopping-basket"></i><span>add</span>
-                        </button>
-
-                        <div class="product-action">
-                            <button title="Quantity Minus"><i class=""></i></button>
-                            <input title="Quantity Number" type="text" name="quantity" value="1">
-                            <button title="Quantity Plus"><i class="icofont-plus"></i></button>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="product-card">
-                    <div class="product-media">
-                        <div class="product-label"><label class="label-text sale">sale</label></div>
-                        <button class="product-wish wish"><i class="fas fa-heart"></i></button>
-                        <a class="product-image" href="product-video.html"><img src="assets/images/product/03.jpg"
-                                                                                alt="product"></a>
-                        <div class="product-widget"><a title="Product Compare" href="compare.html"
-                                                       class="fas fa-random"></a><a title="Product Video"
-                                                                                    href="https://youtu.be/9xzcVxSBbG8"
-                                                                                    class="venobox fas fa-play"
-                                                                                    data-autoplay="true"
-                                                                                    data-vbtype="video"></a><a
-                                    title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal"
-                                    data-bs-target="#product-view"></a></div>
-                    </div>
-                    <div class="product-content">
-                        <div class="product-rating"><i class="active icofont-star"></i><i
-                                    class="active icofont-star"></i><i class="active icofont-star"></i><i
-                                    class="active icofont-star"></i><i class="icofont-star"></i><a
-                                    href="product-video.html">(3)</a></div>
-                        <h6 class="product-name"><a href="product-video.html">fresh green chilis</a></h6>
-                        <h6 class="product-price">
-                            <del>$34</del>
-                            <span>$28<small>/piece</small></span></h6>
-                        <button class="product-add" title="Add to Cart"><i
-                                    class="fas fa-shopping-basket"></i><span>add</span></button>
-                        <div class="product-action">
-                            <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
-                            <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
-                            <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
+                                </h6>
+                                <h6 class="mb-2">
+                                    <small class="text-muted"><?= $productsData["qty"] . " " . $productsData["unit_name"] ?>
+                                        Available</small>
+                                </h6>
+                                <!-- Buy Now Button -->
+                                <a href="product-view.php?pid=<?= $productsData["pid"] ?>" class="product-add">
+                                    <i class="fas fa-shopping-bag"></i>
+                                    <span>Buy Now</span>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                    <!-- Product -->
+                    <?php
+                }
+                ?>
             </div>
-            <div class="col">
-                <div class="product-card">
-                    <div class="product-media">
-                        <div class="product-label"><label class="label-text sale">sale</label></div>
-                        <button class="product-wish wish"><i class="fas fa-heart"></i></button>
-                        <a class="product-image" href="product-video.html"><img src="assets/images/product/04.jpg"
-                                                                                alt="product"></a>
-                        <div class="product-widget"><a title="Product Compare" href="compare.html"
-                                                       class="fas fa-random"></a><a title="Product Video"
-                                                                                    href="https://youtu.be/9xzcVxSBbG8"
-                                                                                    class="venobox fas fa-play"
-                                                                                    data-autoplay="true"
-                                                                                    data-vbtype="video"></a><a
-                                    title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal"
-                                    data-bs-target="#product-view"></a></div>
-                    </div>
-                    <div class="product-content">
-                        <div class="product-rating"><i class="active icofont-star"></i><i
-                                    class="active icofont-star"></i><i class="active icofont-star"></i><i
-                                    class="active icofont-star"></i><i class="icofont-star"></i><a
-                                    href="product-video.html">(3)</a></div>
-                        <h6 class="product-name"><a href="product-video.html">fresh green chilis</a></h6>
-                        <h6 class="product-price">
-                            <del>$34</del>
-                            <span>$28<small>/piece</small></span></h6>
-                        <button class="product-add" title="Add to Cart"><i
-                                    class="fas fa-shopping-basket"></i><span>add</span></button>
-                        <div class="product-action">
-                            <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
-                            <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
-                            <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
-                        </div>
-                    </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="section-btn-25"><a href="shop.php" class="btn btn-outline"><i
+                                    class="fas fa-eye"></i><span>view all related</span></a></div>
                 </div>
-            </div>
-            <div class="col">
-                <div class="product-card">
-                    <div class="product-media">
-                        <div class="product-label"><label class="label-text sale">sale</label></div>
-                        <button class="product-wish wish"><i class="fas fa-heart"></i></button>
-                        <a class="product-image" href="product-video.html"><img src="assets/images/product/05.jpg"
-                                                                                alt="product"></a>
-                        <div class="product-widget"><a title="Product Compare" href="compare.html"
-                                                       class="fas fa-random"></a><a title="Product Video"
-                                                                                    href="https://youtu.be/9xzcVxSBbG8"
-                                                                                    class="venobox fas fa-play"
-                                                                                    data-autoplay="true"
-                                                                                    data-vbtype="video"></a><a
-                                    title="Product View" href="#" class="fas fa-eye" data-bs-toggle="modal"
-                                    data-bs-target="#product-view"></a></div>
-                    </div>
-                    <div class="product-content">
-                        <div class="product-rating"><i class="active icofont-star"></i><i
-                                    class="active icofont-star"></i><i class="active icofont-star"></i><i
-                                    class="active icofont-star"></i><i class="icofont-star"></i><a
-                                    href="product-video.html">(3)</a></div>
-                        <h6 class="product-name"><a href="product-video.html">fresh green chilis</a></h6>
-                        <h6 class="product-price">
-                            <del>$34</del>
-                            <span>$28<small>/piece</small></span></h6>
-                        <button class="product-add" title="Add to Cart"><i
-                                    class="fas fa-shopping-basket"></i><span>add</span></button>
-                        <div class="product-action">
-                            <button class="action-minus" title="Quantity Minus"><i class="icofont-minus"></i></button>
-                            <input class="action-input" title="Quantity Number" type="text" name="quantity" value="1">
-                            <button class="action-plus" title="Quantity Plus"><i class="icofont-plus"></i></button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-btn-25"><a href="shop.php" class="btn btn-outline"><i
-                                class="fas fa-eye"></i><span>view all related</span></a></div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
+    <?php
+}
+?>
+
 
 <!--Toast-->
 <?php include "toast.php" ?>

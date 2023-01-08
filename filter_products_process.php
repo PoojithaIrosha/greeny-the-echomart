@@ -1,6 +1,6 @@
 <?php
 
-require_once "connection.php";
+require_once "MySQL.php";
 
 $search = $_POST["search"];
 $min_price = $_POST["min_price"];
