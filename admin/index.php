@@ -1,3 +1,16 @@
+<?php
+session_start();
+require_once "../MySQL.php";
+
+if (!isset($_SESSION["admin"])) {
+    header("Location: login.php");
+    exit();
+}
+
+$admin = $_SESSION["admin"];
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,17 +41,12 @@
                                 <div class="col-xl-4">
                                     <div class="card h-100">
                                         <div class="card-body">
-                                            <div class="d-flex justify-content-between align-items-center">
-                                                <div>
-                                                    <div class="card-title">
-                                                        <h4 class="title mb-1">Congratulations Smith!</h4>
-                                                        <p class="small">Best seller of the month</p>
-                                                    </div>
-                                                    <div class="my-3">
-                                                        <div class="amount h2 fw-bold text-primary">$42.5k</div>
-                                                        <div class="smaller">You have done 69.5% more sales today.</div>
-                                                    </div>
-                                                    <a href="#" class="btn btn-sm btn-primary">View Sales</a></div>
+                                            <div class="d-flex justify-content-between align-items-center h-100">
+                                                <div class="card-title d-flex align-items-center">
+                                                    <h4 class="title mb-1">
+                                                        Welcome <?= $admin['fname'] . ' ' . $admin['lname'] ?>!</h4>
+                                                </div>
+                                                <!--<a href="#" class="btn btn-sm btn-primary">View Profile</a>-->
                                                 <div class="d-none d-sm-block d-xl-none d-xxl-block me-md-5 me-xxl-0">
                                                     <img src="images/award/a.png" alt=""></div>
                                             </div>
@@ -461,6 +469,6 @@
     </div>
 </div>
 <script src="assets/js/charts/ecommerce-chart.js"></script>
-<!-- Mirrored from html.nioboard.themenio.com/index.php by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 06 Jan 2023 17:28:48 GMT -->
+<script src="assets/js/admin.js"></script>
 
 </html>

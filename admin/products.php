@@ -1,3 +1,10 @@
+<?php
+
+session_start();
+require_once "../MySQL.php";
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,7 +37,7 @@
                                         <h1 class="nk-block-title">Products</h1>
                                         <nav>
                                             <ol class="breadcrumb breadcrumb-arrow mb-0">
-                                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                                <li class="breadcrumb-item"><a href="index.php">Home</a></li>
                                                 <li class="breadcrumb-item active" aria-current="page">Products</li>
                                             </ol>
                                         </nav>
@@ -51,113 +58,103 @@
                                 <div class="card">
                                     <table class="datatable-init table" data-nk-container="table-responsive">
                                         <thead class="table-light">
+
+
                                         <tr>
                                             <th class="tb-col tb-col-check" data-sortable="false">
-                                                <div class="form-check"><input class="form-check-input" type="checkbox"
-                                                                               value=""></div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" value="">
+                                                </div>
                                             </th>
                                             <th class="tb-col"><span class="overline-title">products</span></th>
+                                            <th class="tb-col"><span class="overline-title">category</span></th>
                                             <th class="tb-col"><span class="overline-title">qty</span></th>
-                                            <th class="tb-col tb-col-md"><span class="overline-title">price</span></th>
-                                            <th class="tb-col text-center"><span class="overline-title">Status</span>
+                                            <th class="tb-col tb-col-md"><span class="overline-title">price</span>
                                             </th>
-                                            <th class="tb-col tb-col-end" data-sortable="false"><span
-                                                        class="overline-title">action</span></th>
+                                            <th class="tb-col text-center"><span
+                                                        class="overline-title">Status</span>
+                                            </th>
+                                            <th class="tb-col tb-col-end" data-sortable="false">
+                                                <span class="overline-title">action</span>
+                                            </th>
                                         </tr>
+
+
                                         </thead>
                                         <tbody>
-                                        <tr>
-                                            <td class="tb-col tb-col-check">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="pid1">
-                                                </div>
-                                            </td>
-                                            <td class="tb-col">
-                                                <div class="media-group">
-                                                    <div class="media media-md media-middle">
-                                                        <img src="../images/product/a.jpg" alt="product">
-                                                    </div>
-                                                    <div class="media-text"><a href="edit-product.php" class="title">Pink
-                                                            Fitness Tracker</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="tb-col"><span>42tt</span></td>
-                                            <td class="tb-col tb-col-md"><span>$126.00</span></td>
-                                            <td>
-                                                <div class="d-flex justify-content-center form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" role="switch"
-                                                           id="flexSwitchCheckChecked" checked>
-                                                </div>
-                                            </td>
+                                        <?php
 
-                                            <td class="tb-col tb-col-end">
-                                                <div class="dropdown">
-                                                    <a href="#" class="btn btn-sm btn-icon btn-zoom me-n1"
-                                                       data-bs-toggle="dropdown">
-                                                        <em class="icon ni ni-more-v"></em>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
-                                                        <div class="dropdown-content py-1">
-                                                            <ul class="link-list link-list-hover-bg-primary link-list-md">
-                                                                <li><a href="edit-product.php"><em
-                                                                                class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                </li>
-                                                                <li><a href="edit-product.php"><em
-                                                                                class="icon ni ni-trash"></em><span>Delete</span></a>
-                                                                </li>
-                                                            </ul>
+                                        $prodRs = Database::search("SELECT *, product.id as pid, c.name as cat FROM product JOIN category c on c.id = product.category_id");
+                                        while ($prod = $prodRs->fetch_assoc()) {
+                                            ?>
+
+                                            <tr>
+                                                <td class="tb-col tb-col-check">
+                                                    <div class="form-check">
+                                                        <input class="form-check-input" type="checkbox" value=""
+                                                               id="pid1">
+                                                    </div>
+                                                </td>
+
+                                                <td class="tb-col">
+                                                    <div class="media-group">
+                                                        <div class="media media-md media-middle">
+                                                            <?php
+
+                                                            $prodImageRs = Database::search("SELECT * FROM product_images WHERE product_id = '" . $prod['pid'] . "' LIMIT 1");
+                                                            $image = $prodImageRs->fetch_assoc();
+
+                                                            ?>
+                                                            <img src="../<?= $image['code'] ?>" alt="product">
+                                                        </div>
+                                                        <div class="media-text"><a
+                                                                    href="edit-product.php?pid=<?= $prod['pid'] ?>"
+                                                                    class="title"><?= $prod['title'] ?></a>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+                                                <td class="tb-col"><span><?= $prod['cat'] ?></span></td>
+                                                <td class="tb-col"><span><?= $prod['qty'] ?></span></td>
+                                                <td class="tb-col tb-col-md"><span>Rs.<?= $prod['price'] ?>.00</span>
+                                                </td>
 
-                                        <tr>
-                                            <td class="tb-col tb-col-check">
-                                                <div class="form-check">
-                                                    <input class="form-check-input" type="checkbox" value="" id="pid1">
-                                                </div>
-                                            </td>
-                                            <td class="tb-col">
-                                                <div class="media-group">
-                                                    <div class="media media-md media-middle">
-                                                        <img src="images/product/a.jpg" alt="product">
+                                                <!--Status-->
+                                                <td>
+                                                    <div class="d-flex justify-content-center form-check form-switch">
+                                                        <input class="form-check-input" type="checkbox" role="switch"
+                                                               id="product-status-check" checked
+                                                               onchange="changeProductStatus('<?= $prod['pid'] ?>')">
                                                     </div>
-                                                    <div class="media-text"><a href="edit-product.php" class="title">Pink
-                                                            Fitness Tracker</a>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="tb-col"><span>42</span></td>
-                                            <td class="tb-col tb-col-md"><span>$126.00</span></td>
-                                            <td>
-                                                <div class="d-flex justify-content-center form-check form-switch">
-                                                    <input class="form-check-input" type="checkbox" role="switch"
-                                                           id="flexSwitchCheckChecked" checked>
-                                                </div>
-                                            </td>
-                                            <td class="tb-col tb-col-end">
-                                                <div class="dropdown">
-                                                    <a href="#" class="btn btn-sm btn-icon btn-zoom me-n1"
-                                                       data-bs-toggle="dropdown">
-                                                        <em class="icon ni ni-more-v"></em>
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
-                                                        <div class="dropdown-content py-1">
-                                                            <ul class="link-list link-list-hover-bg-primary link-list-md">
-                                                                <li><a href="edit-product.php"><em
-                                                                                class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                </li>
-                                                                <li><a href="edit-product.php"><em
-                                                                                class="icon ni ni-trash"></em><span>Delete</span></a>
-                                                                </li>
-                                                            </ul>
+                                                </td>
+                                                <!--Action-->
+
+                                                <td class="tb-col tb-col-end">
+                                                    <div class="dropdown">
+                                                        <a href="#" class="btn btn-sm btn-icon btn-zoom me-n1"
+                                                           data-bs-toggle="dropdown">
+                                                            <em class="icon ni ni-more-v"></em>
+                                                        </a>
+                                                        <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
+                                                            <div class="dropdown-content py-1">
+                                                                <ul class="link-list link-list-hover-bg-primary link-list-md">
+                                                                    <li><a href="edit-product.php"><em
+                                                                                    class="icon ni ni-edit"></em><span>Edit</span></a>
+                                                                    </li>
+                                                                    <li><a href="edit-product.php"><em
+                                                                                    class="icon ni ni-trash"></em><span>Delete</span></a>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </td>
-                                        </tr>
+                                                </td>
+
+                                            </tr>
+
+                                            <?php
+                                        }
+                                        ?>
+
                                         </tbody>
                                     </table>
                                 </div>
@@ -171,8 +168,8 @@
     </div>
 </div>
 </body>
-<script src="../assets/js/bundle.js"></script>
-<script src="../assets/js/scripts.js"></script>
+<script src="assets/js/bundle.js"></script>
+<script src="assets/js/scripts.js"></script>
 <div class="offcanvas offcanvas-end offcanvas-size-lg" id="notificationOffcanvas">
     <div class="offcanvas-header border-bottom border-light"><h5 class="offcanvas-title" id="offcanvasTopLabel">Recent
             Notification</h5>
@@ -284,5 +281,6 @@
         </ul>
     </div>
 </div>
-<script src="../assets/js/data-tables/data-tables.js"></script>
+<script src="assets/js/data-tables/data-tables.js"></script>
+<script src="assets/js/admin.js"></script>
 </html>
