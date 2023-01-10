@@ -103,8 +103,7 @@ $b = array();
                             $_SESSION["c"] = $c;
                             ?>
                         </ul>
-                        <button class="shop-widget-btn"
-                                onclick='do_filter(<?= json_encode($_SESSION["c"]) ?>,<?= json_encode($_SESSION["b"]) ?>, "<?= $_GET["search"] ?>", "0")'>
+                        <button onclick="window.location.reload()" class="shop-widget-btn">
                             <i class="far fa-trash-alt"></i>
                             <span>clear filter</span>
                         </button>
@@ -135,8 +134,7 @@ $b = array();
 
 
                         </ul>
-                        <button type="reset" class="shop-widget-btn"
-                                onclick='do_filter(<?= json_encode($_SESSION["c"]) ?>,<?= json_encode($_SESSION["b"]) ?>, "<?= $_GET["search"] ?>", "0")'>
+                        <button type="reset" onclick="window.location.reload()" class="shop-widget-btn">
                             <i class="far fa-trash-alt"></i><span>clear
                                     filter</span></button>
                     </form>
