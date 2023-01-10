@@ -7,7 +7,6 @@ if (!isset($_SESSION["admin"])) {
     exit();
 }
 
-
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +17,7 @@ if (!isset($_SESSION["admin"])) {
     <meta name="author" content="Softnio">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Multi-purpose admin dashboard template that especially build for programmers.">
-    <title>Admin - Products</title>
+    <title>Admin - categorys</title>
     <link rel="shortcut icon" href="images/favicon.png">
     <link rel="stylesheet" href="assets/css/style926d.css?v1.1.1">
 </head>
@@ -39,21 +38,21 @@ if (!isset($_SESSION["admin"])) {
                             <div class="nk-block-head">
                                 <div class="nk-block-head-between flex-wrap gap g-2">
                                     <div class="nk-block-head-content">
-                                        <h1 class="nk-block-title">Products</h1>
+                                        <h1 class="nk-block-title">categorys</h1>
                                         <nav>
                                             <ol class="breadcrumb breadcrumb-arrow mb-0">
                                                 <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                                                <li class="breadcrumb-item active" aria-current="page">Products</li>
+                                                <li class="breadcrumb-item active" aria-current="page">categorys</li>
                                             </ol>
                                         </nav>
                                     </div>
                                     <div class="nk-block-head-content">
                                         <ul class="d-flex">
-                                            <li><a href="add-product.php" class="btn btn-primary btn-md d-md-none"><em
+                                            <li><a href="add-category.php" class="btn btn-primary btn-md d-md-none"><em
                                                             class="icon ni ni-plus"></em><span>Add</span></a></li>
-                                            <li><a href="add-product.php"
+                                            <li><a href="add-category.php"
                                                    class="btn btn-primary d-none d-md-inline-flex"><em
-                                                            class="icon ni ni-plus"></em><span>Add Product</span></a>
+                                                            class="icon ni ni-plus"></em><span>Add category</span></a>
                                             </li>
                                         </ul>
                                     </div>
@@ -71,13 +70,8 @@ if (!isset($_SESSION["admin"])) {
                                                     <input class="form-check-input" type="checkbox" value="">
                                                 </div>
                                             </th>
-                                            <th class="tb-col"><span class="overline-title">products</span></th>
-                                            <th class="tb-col"><span class="overline-title">category</span></th>
-                                            <th class="tb-col"><span class="overline-title">qty</span></th>
-                                            <th class="tb-col tb-col-md"><span class="overline-title">price</span>
-                                            </th>
-                                            <th class="tb-col text-center"><span
-                                                        class="overline-title">Status</span>
+                                            <th class="tb-col"><span class="overline-title">ID</span></th>
+                                            <th class="tb-col"><span class="overline-title">Category</span></th>
                                             </th>
                                             <th class="tb-col tb-col-end" data-sortable="false">
                                                 <span class="overline-title">action</span>
@@ -89,8 +83,8 @@ if (!isset($_SESSION["admin"])) {
                                         <tbody>
                                         <?php
 
-                                        $prodRs = Database::search("SELECT *, product.id as pid, c.name as cat FROM product JOIN category c on c.id = product.category_id");
-                                        while ($prod = $prodRs->fetch_assoc()) {
+                                        $catRs = Database::search("SELECT * FROM category");
+                                        while ($cat = $catRs->fetch_assoc()) {
                                             ?>
 
                                             <tr>
@@ -100,37 +94,9 @@ if (!isset($_SESSION["admin"])) {
                                                     </div>
                                                 </td>
 
-                                                <td class="tb-col">
-                                                    <div class="media-group">
-                                                        <div class="media media-md media-middle">
-                                                            <?php
 
-                                                            $prodImageRs = Database::search("SELECT * FROM product_images WHERE product_id = '" . $prod['pid'] . "' LIMIT 1");
-                                                            $image = $prodImageRs->fetch_assoc();
-
-                                                            ?>
-                                                            <img src="../<?= $image['code'] ?>" alt="product">
-                                                        </div>
-                                                        <div class="media-text"><a
-                                                                    href="edit-product.php?pid=<?= $prod['pid'] ?>"
-                                                                    class="title"><?= $prod['title'] ?></a>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td class="tb-col"><span><?= $prod['cat'] ?></span></td>
-                                                <td class="tb-col"><span><?= $prod['qty'] ?></span></td>
-                                                <td class="tb-col tb-col-md"><span>Rs.<?= $prod['price'] ?>.00</span>
-                                                </td>
-
-                                                <!--Status-->
-                                                <td>
-                                                    <div class="d-flex justify-content-center form-check form-switch">
-                                                        <input class="form-check-input" type="checkbox" role="switch"
-                                                               id="product-status-check<?= $prod['pid'] ?>"
-                                                               onchange="changeProductStatus('<?= $prod['pid'] ?>')" <?= ($prod['status_id'] == 1) ? "checked" : "" ?> >
-                                                    </div>
-                                                </td>
-                                                <!--Action-->
+                                                <td class="tb-col"><span><?= $cat['id'] ?></span></td>
+                                                <td class="tb-col"><span><?= $cat['name'] ?></span></td>
 
                                                 <td class="tb-col tb-col-end">
                                                     <div class="dropdown">
@@ -142,12 +108,7 @@ if (!isset($_SESSION["admin"])) {
                                                             <div class="dropdown-content py-1">
                                                                 <ul class="link-list link-list-hover-bg-primary link-list-md">
                                                                     <li>
-                                                                        <a href="edit-product.php?pid=<?= $prod['pid'] ?>">
-                                                                            <em class="icon ni ni-edit"></em><span>Edit</span>
-                                                                        </a>
-                                                                    </li>
-                                                                    <li>
-                                                                        <a href="javascript:deleteProduct('<?= $prod['pid'] ?>')"><em
+                                                                        <a href="javascript:deleteCategory('<?= $cat['id'] ?>')"><em
                                                                                     class="icon ni ni-trash"></em><span>Delete</span></a>
                                                                     </li>
                                                                 </ul>

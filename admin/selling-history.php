@@ -1,3 +1,12 @@
+<?php
+session_start();
+require_once "../MySQL.php";
+
+if (!isset($_SESSION["admin"])) {
+    header("Location: login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -41,6 +50,7 @@
 
                             <div class="content-wrapper">
                                 <div class="col-lg-12 grid-margin stretch-card">
+                                    <!--Search-->
                                     <div class="card">
                                         <ul class="navbar-nav mr-lg-2">
                                             <li class="nav-item nav-search d-none d-lg-block">
@@ -49,20 +59,23 @@
                                                         <div class="row">
                                                             <div class="col-12 col-lg-3 mt-3 mb-3">
                                                                 <label class="form-label">Search by Invoice Id</label>
-                                                                <input type="text" class="form-control"
-                                                                       placeholder="Invoice ID..."/>
+                                                                <input id="inv-search-input" type="text"
+                                                                       class="form-control"
+                                                                       placeholder="Invoice ID..."
+                                                                       onkeyup="searchOrder()"/>
                                                             </div>
                                                             <div class="col-12 col-lg-3 mt-3 mb-3">
                                                                 <label class="form-label">From Date:</label>
-                                                                <input type="date" class="form-control"/>
+                                                                <input id="date-from" type="date" class="form-control"/>
                                                             </div>
                                                             <div class="col-12 col-lg-3 mt-3 mb-3">
                                                                 <label class="form-label">To Date:</label>
-                                                                <input type="date" class="form-control"/>
+                                                                <input id="date-to" type="date" class="form-control"/>
                                                             </div>
                                                             <div class="col-12 col-lg-3 mt-3 mb-3 d-grid">
                                                                 <label class="form-label"></label>
-                                                                <button class="btn btn-primary btn-sm fw-bold">Find
+                                                                <button class="btn btn-primary btn-sm fw-bold"
+                                                                        onclick="searchOrder()">Find
                                                                 </button>
                                                             </div>
                                                         </div>
@@ -72,7 +85,9 @@
                                         </ul>
                                     </div>
                                 </div>
+                                <!--Search-->
 
+                                <!--Table-->
                                 <div class="col-lg-12 grid-margin stretch-card mt-4">
                                     <div class="card">
                                         <div class="card-body">
@@ -83,87 +98,62 @@
                                                     <thead>
                                                     <tr>
                                                         <th>Invoice Id</th>
-                                                        <th>Product Name</th>
                                                         <th>Buyer</th>
                                                         <th>Amount</th>
-                                                        <th>Quantity</th>
+                                                        <th>No of Products</th>
+                                                        <th>Order Date</th>
                                                         <th class="text-center">Status</th>
-                                                        <th class="text-center">Action</th>
                                                     </tr>
                                                     </thead>
-                                                    <tbody>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>Spray Cane</td>
-                                                        <td>Menuka Malinda</td>
-                                                        <td>2900</td>
-                                                        <td>3</td>
-                                                        <td>
-                                                            <div class="d-flex justify-content-center align-items-center">
-                                                                <button class="btn btn-success btn-sm">Confirm Order
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                        <td class="tb-col tb-col-end">
-                                                            <div class="dropdown">
-                                                                <a href="#" class="btn btn-sm btn-icon btn-zoom me-n1"
-                                                                   data-bs-toggle="dropdown">
-                                                                    <em class="icon ni ni-more-v"></em>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
-                                                                    <div class="dropdown-content py-1">
-                                                                        <ul class="link-list link-list-hover-bg-primary link-list-md">
-                                                                            <li><a href="edit-product.php"><em
-                                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                            </li>
-                                                                            <li><a href="edit-product.php"><em
-                                                                                            class="icon ni ni-trash"></em><span>Delete</span></a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
+                                                    <tbody id="table-body">
+
+                                                    <?php
+
+                                                    $invoiceRs = Database::search("SELECT * FROM invoice JOIN user u on invoice.user_email = u.email");
+                                                    while ($invoiceData = $invoiceRs->fetch_assoc()) {
+                                                        ?>
+                                                        <tr>
+                                                            <td><?= $invoiceData['order_id'] ?></td>
+                                                            <td><?= $invoiceData['fname'] . ' ' . $invoiceData['lname'] ?></td>
+                                                            <td>Rs.<?= $invoiceData['amount'] ?></td>
+                                                            <td><?= Database::search("SELECT * FROM invoice_item WHERE invoice_order_id = '" . $invoiceData['order_id'] . "'")->num_rows ?></td>
+                                                            <td><?= $invoiceData['date'] ?></td>
+                                                            <td>
+                                                                <div class="d-flex justify-content-center align-items-center">
+                                                                    <?php
+
+                                                                    if ($invoiceData['status'] == 0) {
+                                                                        ?>
+                                                                        <button class="btn btn-danger btn-sm"
+                                                                                onclick="changeOrderStatus('<?= $invoiceData['order_id'] ?>')">
+                                                                            Delivering
+                                                                        </button>
+                                                                        <?php
+                                                                    } else if ($invoiceData['status'] == 1) {
+                                                                        ?>
+                                                                        <button class="btn btn-success btn-sm"
+                                                                                onclick="changeOrderStatus('<?= $invoiceData['order_id'] ?>')">
+                                                                            Confirm Order
+                                                                        </button>
+                                                                        <?php
+                                                                    }
+
+                                                                    ?>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>01</td>
-                                                        <td>Spray Cane</td>
-                                                        <td>Menuka Malinda</td>
-                                                        <td>2900</td>
-                                                        <td>3</td>
-                                                        <td>
-                                                            <div class="d-flex justify-content-center align-items-center">
-                                                                <button class="btn btn-success btn-sm">Confirm Order
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                        <td class="tb-col tb-col-end">
-                                                            <div class="dropdown">
-                                                                <a href="#" class="btn btn-sm btn-icon btn-zoom me-n1"
-                                                                   data-bs-toggle="dropdown">
-                                                                    <em class="icon ni ni-more-v"></em>
-                                                                </a>
-                                                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
-                                                                    <div class="dropdown-content py-1">
-                                                                        <ul class="link-list link-list-hover-bg-primary link-list-md">
-                                                                            <li><a href="edit-product.php"><em
-                                                                                            class="icon ni ni-edit"></em><span>Edit</span></a>
-                                                                            </li>
-                                                                            <li><a href="edit-product.php"><em
-                                                                                            class="icon ni ni-trash"></em><span>Delete</span></a>
-                                                                            </li>
-                                                                        </ul>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                            </td>
+
+                                                        </tr>
+                                                        <?php
+                                                    }
+                                                    ?>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <!--Table-->
+
                             </div>
                         </div>
                     </div>
@@ -175,7 +165,8 @@
     </div>
 </div>
 </body>
-<script src="../assets/js/bundle.js"></script>
-<script src="../assets/js/scripts.js"></script>
+<script src="assets/js/bundle.js"></script>
+<script src="assets/js/scripts.js"></script>
+<script src="assets/js/admin.js"></script>
 </html>
 

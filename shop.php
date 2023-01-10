@@ -173,14 +173,14 @@ $b = array();
                     }
 
                     $search = $_GET["search"];
-                    $product_rs = Database::search("SELECT *, product.id AS `pid` , unit.`name` AS `unit_name` FROM `product` INNER JOIN `status` ON product.status_id = `status`.status_id INNER JOIN unit ON product.unit_id = unit.id WHERE title LIKE '%" . $search . "%'");
+                    $product_rs = Database::search("SELECT *, product.id AS `pid` , unit.`name` AS `unit_name` FROM `product` INNER JOIN `status` ON product.status_id = `status`.status_id INNER JOIN unit ON product.unit_id = unit.id WHERE title LIKE '%" . $search . "%' AND product.status_id = '1'");
 
                     $no_of_products = $product_rs->num_rows;
                     $results_per_page = 10;
                     $no_of_pages = ceil($no_of_products / $results_per_page);
                     $viewed_result_count = ((int)$page - 1) * $results_per_page;
 
-                    $product_rs2 = Database::search("SELECT *, product.id AS `pid` , unit.`name` AS `unit_name` FROM `product` INNER JOIN `status` ON product.status_id = `status`.status_id INNER JOIN unit ON product.unit_id = unit.id WHERE title LIKE '%" . $search . "%' LIMIT ${results_per_page} OFFSET ${viewed_result_count}");
+                    $product_rs2 = Database::search("SELECT *, product.id AS `pid` , unit.`name` AS `unit_name` FROM `product` INNER JOIN `status` ON product.status_id = `status`.status_id INNER JOIN unit ON product.unit_id = unit.id WHERE title LIKE '%" . $search . "%' AND product.status_id = '1' LIMIT ${results_per_page} OFFSET ${viewed_result_count}");
 
                     while ($data = $product_rs2->fetch_assoc()) {
                         ?>

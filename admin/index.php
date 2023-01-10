@@ -246,48 +246,109 @@ $admin = $_SESSION["admin"];
                                             </div>
                                         </div>
                                         <div class="table-responsive">
-                                            <table class="table table-middle mb-0">
-                                                <thead class="table-light table-head-sm">
+                                            <table class="datatable-init table" data-nk-container="table-responsive">
+                                                <thead class="table-light">
+
+
                                                 <tr>
+                                                    <th class="tb-col tb-col-check" data-sortable="false">
+                                                        <div class="form-check">
+                                                            <input class="form-check-input" type="checkbox" value="">
+                                                        </div>
+                                                    </th>
                                                     <th class="tb-col"><span class="overline-title">products</span></th>
-                                                    <th class="tb-col tb-col-end tb-col-sm text-center"><span
-                                                                class="overline-title">Description</span></th>
-                                                    <th class="tb-col tb-col-end tb-col-sm"><span
-                                                                class="overline-title">price</span></th>
-                                                    <th class="tb-col tb-col-end tb-col-sm"><span
-                                                                class="overline-title">qty</span></th>
-                                                    <th class="tb-col tb-col-end tb-col-sm"><span
-                                                                class="overline-title">unit</span></th>
-                                                    <th class="tb-col tb-col-end tb-col-sm text-center"><span
-                                                                class="overline-title">status</span></th>
+                                                    <th class="tb-col"><span class="overline-title">category</span></th>
+                                                    <th class="tb-col"><span class="overline-title">qty</span></th>
+                                                    <th class="tb-col tb-col-md"><span
+                                                                class="overline-title">price</span>
+                                                    </th>
+                                                    <th class="tb-col text-center"><span
+                                                                class="overline-title">Status</span>
+                                                    </th>
+                                                    <th class="tb-col tb-col-end" data-sortable="false">
+                                                        <span class="overline-title">action</span>
+                                                    </th>
                                                 </tr>
+
+
                                                 </thead>
                                                 <tbody>
-                                                <tr>
-                                                    <td class="tb-col">
-                                                        <div class="media-group">
-                                                            <div class="media media-md flex-shrink-0 media-middle media-circle">
-                                                                <img src="images/product/a.jpg" alt=""></div>
-                                                            <div class="media-text"><span
-                                                                        class="title">Nike v22 Running</span</div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="tb-col tb-col-end tb-col-sm text-center"><span
-                                                                class="small">Best quality oranges from mandarin</span>
-                                                    </td>
-                                                    <td class="tb-col tb-col-end tb-col-sm"><span
-                                                                class="small">$130.20</span></td>
-                                                    <td class="tb-col tb-col-end tb-col-sm"><span
-                                                                class="small">38</span></td>
-                                                    <td class="tb-col tb-col-end tb-col-sm"><span
-                                                                class="small">Kg</span></td>
-                                                    <td class="tb-col tb-col-end tb-col-sm">
-                                                        <div class="d-flex justify-content-center form-check form-switch">
-                                                            <input class="form-check-input" type="checkbox"
-                                                                   role="switch" id="flexSwitchCheckChecked" checked>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                <?php
+
+                                                $prodRs = Database::search("SELECT *, product.id as pid, c.name as cat FROM product JOIN category c on c.id = product.category_id");
+                                                while ($prod = $prodRs->fetch_assoc()) {
+                                                    ?>
+
+                                                    <tr>
+                                                        <td class="tb-col tb-col-check">
+                                                            <div class="form-check">
+                                                                <input class="form-check-input" type="checkbox">
+                                                            </div>
+                                                        </td>
+
+                                                        <td class="tb-col">
+                                                            <div class="media-group">
+                                                                <div class="media media-md media-middle">
+                                                                    <?php
+
+                                                                    $prodImageRs = Database::search("SELECT * FROM product_images WHERE product_id = '" . $prod['pid'] . "' LIMIT 1");
+                                                                    $image = $prodImageRs->fetch_assoc();
+
+                                                                    ?>
+                                                                    <img src="../<?= $image['code'] ?>" alt="product">
+                                                                </div>
+                                                                <div class="media-text"><a
+                                                                            href="edit-product.php?pid=<?= $prod['pid'] ?>"
+                                                                            class="title"><?= $prod['title'] ?></a>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td class="tb-col"><span><?= $prod['cat'] ?></span></td>
+                                                        <td class="tb-col"><span><?= $prod['qty'] ?></span></td>
+                                                        <td class="tb-col tb-col-md">
+                                                            <span>Rs.<?= $prod['price'] ?>.00</span>
+                                                        </td>
+
+                                                        <!--Status-->
+                                                        <td>
+                                                            <div class="d-flex justify-content-center form-check form-switch">
+                                                                <input class="form-check-input" type="checkbox"
+                                                                       role="switch"
+                                                                       id="product-status-check<?= $prod['pid'] ?>"
+                                                                       onchange="changeProductStatus('<?= $prod['pid'] ?>')" <?= ($prod['status_id'] == 1) ? "checked" : "" ?> >
+                                                            </div>
+                                                        </td>
+                                                        <!--Action-->
+
+                                                        <td class="tb-col tb-col-end">
+                                                            <div class="dropdown">
+                                                                <a href="#" class="btn btn-sm btn-icon btn-zoom me-n1"
+                                                                   data-bs-toggle="dropdown">
+                                                                    <em class="icon ni ni-more-v"></em>
+                                                                </a>
+                                                                <div class="dropdown-menu dropdown-menu-sm dropdown-menu-end">
+                                                                    <div class="dropdown-content py-1">
+                                                                        <ul class="link-list link-list-hover-bg-primary link-list-md">
+                                                                            <li>
+                                                                                <a href="edit-product.php?pid=<?= $prod['pid'] ?>">
+                                                                                    <em class="icon ni ni-edit"></em><span>Edit</span>
+                                                                                </a>
+                                                                            </li>
+                                                                            <li>
+                                                                                <a href="javascript:deleteProduct('<?= $prod['pid'] ?>')"><em
+                                                                                            class="icon ni ni-trash"></em><span>Delete</span></a>
+                                                                            </li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+
+                                                    </tr>
+
+                                                    <?php
+                                                }
+                                                ?>
 
                                                 </tbody>
                                             </table>
