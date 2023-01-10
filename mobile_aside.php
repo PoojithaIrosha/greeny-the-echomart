@@ -272,7 +272,7 @@
                     <li><a href="wishlist.php">wishlist</a></li>
                     <li><a href="checkout.php">checkout</a></li>
                     <li><a href="orderlist.html">order history</a></li>
-                    <li><a href="invoice.html">order invoice</a></li>
+                    <li><a href="invoice.php">order invoice</a></li>
                 </ul>
             </li>
             <li>
@@ -307,7 +307,7 @@
                 </a>
             </li>
             <li>
-                <a class="nav-link" href="contact.html">
+                <a class="nav-link" href="contact.php">
                     <i class="icofont-contacts"></i>
                     contact us
                 </a>

@@ -418,7 +418,7 @@ function update_user_details() {
             if (txt == 'success') {
                 window.location.reload();
             } else {
-                document.getElementById('err-msg').innerHTML = txt;
+                document.getElementById('err-msg').innerHTML = txt
             }
         }
     }
@@ -609,8 +609,7 @@ function load_delivery_fee(did) {
         if (req.readyState == 4) {
             let txt = req.responseText;
             let formatter = new Intl.NumberFormat("si-LK", {
-                style: "currency",
-                currency: "LKR"
+                style: "currency", currency: "LKR"
             })
 
             document.getElementById("delivery_fee").innerHTML = formatter.format(txt);
@@ -628,6 +627,7 @@ function calculate_total(delivery) {
     document.getElementById("total").innerHTML = total.toString();
 }
 
+/*
 function checkout(contacts, addresses) {
     const contact_list = JSON.parse(JSON.stringify(contacts));
     const address_list = JSON.parse(JSON.stringify(addresses));
@@ -662,6 +662,31 @@ function checkout(contacts, addresses) {
 
     console.log(contact_no);
     console.log(address_id);
+}*/
+
+function printInvoice(orderId) {
+
+    const req = new XMLHttpRequest();
+    req.onreadystatechange = () => {
+        if (req.readyState == 4) {
+            let email = req.responseText;
+
+            let form = new FormData();
+            form.append('email', email);
+
+            const req2 = new XMLHttpRequest();
+            req2.onreadystatechange = () => {
+                if (req2.readyState == 4) {
+                    // window.open(req2.responseText);
+                    console.log(req2.responseText);
+                }
+            }
+            req2.open('post', 'generate-invoice-pdf.php', true);
+            req2.send(form);
+        }
+    }
+    req.open('get', 'email-template.php?invoice=' + orderId, true);
+    req.send();
 
 
 }

@@ -166,7 +166,7 @@ if ($rs->num_rows == 1) {
                 </div>
             </div>
         </div>
-    </section>
+</section>
 
     <section class="inner-section">
         <div class="container">
@@ -176,12 +176,13 @@ if ($rs->num_rows == 1) {
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="nav nav-tabs">
-                        <li><a href="#tab-reve" class="tab-link" data-bs-toggle="tab">reviews (<?= $rs2->num_rows; ?>
+                        <li><a href="#tab-reve" class="tab-link active" data-bs-toggle="tab">reviews
+                                (<?= $rs2->num_rows; ?>
                                 )</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="tab-pane fade" id="tab-reve">
+            <div class="tab-pane fade active show" id="tab-reve">
                 <div class="row">
                     <div class="col-lg-12">
 

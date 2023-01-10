@@ -181,69 +181,6 @@ $district_id = 0;
                 </div>
             </div>
 
-            <!--<div class="col-lg-12">-->
-            <!--    <div class="account-card">-->
-            <!--        <div class="account-title">-->
-            <!--            <h4>contact number</h4>-->
-            <!--            <button data-bs-toggle="modal" data-bs-target="#contact-add">add-->
-            <!--                contact-->
-            <!--            </button>-->
-            <!--        </div>-->
-            <!--        <div class="account-content">-->
-            <!--            <div class="row">-->
-            <!--                <div class="col-md-6 col-lg-4 alert fade show">-->
-            <!--                    <div class="profile-card contact active">-->
-            <!--                        <h6>primary</h6>-->
-            <!--                        <p>+8801838288389</p>-->
-            <!--                        <ul>-->
-            <!--                            <li>-->
-            <!--                                <button class="edit icofont-edit" title="Edit This"-->
-            <!--                                        data-bs-toggle="modal" data-bs-target="#contact-edit"></button>-->
-            <!--                            </li>-->
-            <!--                            <li>-->
-            <!--                                <button class="trash icofont-ui-delete" title="Remove This"-->
-            <!--                                        data-bs-dismiss="alert"></button>-->
-            <!--                            </li>-->
-            <!--                        </ul>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="col-md-6 col-lg-4 alert fade show">-->
-            <!--                    <div class="profile-card contact">-->
-            <!--                        <h6>secondary</h6>-->
-            <!--                        <p>+8801941101915</p>-->
-            <!--                        <ul>-->
-            <!--                            <li>-->
-            <!--                                <button class="edit icofont-edit" title="Edit This"-->
-            <!--                                        data-bs-toggle="modal" data-bs-target="#contact-edit"></button>-->
-            <!--                            </li>-->
-            <!--                            <li>-->
-            <!--                                <button class="trash icofont-ui-delete" title="Remove This"-->
-            <!--                                        data-bs-dismiss="alert"></button>-->
-            <!--                            </li>-->
-            <!--                        </ul>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="col-md-6 col-lg-4 alert fade show">-->
-            <!--                    <div class="profile-card contact">-->
-            <!--                        <h6>secondary</h6>-->
-            <!--                        <p>+8801747875727</p>-->
-            <!--                        <ul>-->
-            <!--                            <li>-->
-            <!--                                <button class="edit icofont-edit" title="Edit This"-->
-            <!--                                        data-bs-toggle="modal" data-bs-target="#contact-edit"></button>-->
-            <!--                            </li>-->
-            <!--                            <li>-->
-            <!--                                <button class="trash icofont-ui-delete" title="Remove This"-->
-            <!--                                        data-bs-dismiss="alert"></button>-->
-            <!--                            </li>-->
-            <!--                        </ul>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--        </div>-->
-            <!--    </div>-->
-            <!--</div>-->
-
             <div class="col-lg-12">
                 <div class="account-card">
                     <div class="account-title">
@@ -303,69 +240,6 @@ $district_id = 0;
                 </div>
             </div>
 
-            <!--<div class="col-lg-12">-->
-            <!--    <div class="account-card">-->
-            <!--        <div class="account-title">-->
-            <!--            <h4>delivery address</h4>-->
-            <!--            <button data-bs-toggle="modal" data-bs-target="#address-add">add-->
-            <!--                address-->
-            <!--            </button>-->
-            <!--        </div>-->
-            <!--        <div class="account-content">-->
-            <!--            <div class="row">-->
-            <!--                <div class="col-md-6 col-lg-4 alert fade show">-->
-            <!--                    <div class="profile-card address active">-->
-            <!--                        <h6>Home</h6>-->
-            <!--                        <p>jalkuri, fatullah, narayanganj-1420. word no-09, road no-17/A</p>-->
-            <!--                        <ul class="user-action">-->
-            <!--                            <li>-->
-            <!--                                <button class="edit icofont-edit" title="Edit This"-->
-            <!--                                        data-bs-toggle="modal" data-bs-target="#address-edit"></button>-->
-            <!--                            </li>-->
-            <!--                            <li>-->
-            <!--                                <button class="trash icofont-ui-delete" title="Remove This"-->
-            <!--                                        data-bs-dismiss="alert"></button>-->
-            <!--                            </li>-->
-            <!--                        </ul>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="col-md-6 col-lg-4 alert fade show">-->
-            <!--                    <div class="profile-card address">-->
-            <!--                        <h6>Office</h6>-->
-            <!--                        <p>east tejturi bazar, dhaka-1200. word no-04, road no-13/c, house no-4/b</p>-->
-            <!--                        <ul class="user-action">-->
-            <!--                            <li>-->
-            <!--                                <button class="edit icofont-edit" title="Edit This"-->
-            <!--                                        data-bs-toggle="modal" data-bs-target="#address-edit"></button>-->
-            <!--                            </li>-->
-            <!--                            <li>-->
-            <!--                                <button class="trash icofont-ui-delete" title="Remove This"-->
-            <!--                                        data-bs-dismiss="alert"></button>-->
-            <!--                            </li>-->
-            <!--                        </ul>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--                <div class="col-md-6 col-lg-4 alert fade show">-->
-            <!--                    <div class="profile-card address">-->
-            <!--                        <h6>Bussiness</h6>-->
-            <!--                        <p>kawran bazar, dhaka-1100. word no-02, road no-13/d, house no-7/m</p>-->
-            <!--                        <ul class="user-action">-->
-            <!--                            <li>-->
-            <!--                                <button class="edit icofont-edit" title="Edit This"-->
-            <!--                                        data-bs-toggle="modal" data-bs-target="#address-edit"></button>-->
-            <!--                            </li>-->
-            <!--                            <li>-->
-            <!--                                <button class="trash icofont-ui-delete" title="Remove This"-->
-            <!--                                        data-bs-dismiss="alert"></button>-->
-            <!--                            </li>-->
-            <!--                        </ul>-->
-            <!--                    </div>-->
-            <!--                </div>-->
-            <!--            </div>-->
-            <!--        </div>-->
-            <!--    </div>-->
-            <!--</div>-->
-
             <div class="col-lg-12">
                 <div class="account-card mb-0">
                     <div class="account-title">
@@ -381,6 +255,7 @@ $district_id = 0;
 
                         <div class="checkout-proceed">
                             <button class="btn btn-inline"
+                            <button class="btn btn-inline" id="checkout-btn"
                                     onclick='checkout(<?= json_encode($contacts) ?>, <?= json_encode($addresses) ?>)'>
                                 proced to checkout
                             </button>
@@ -395,6 +270,7 @@ $district_id = 0;
 
 <?php require "footer.php" ?>
 
+<script type="text/javascript" src="https://www.payhere.lk/lib/payhere.js"></script>
 <script src="assets/vendor/bootstrap/jquery-1.12.4.min.js"></script>
 <script src="assets/vendor/bootstrap/popper.min.js"></script>
 <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
@@ -409,6 +285,8 @@ $district_id = 0;
 <script src="assets/js/slick.js"></script>
 <script src="assets/js/main.js"></script>
 <script src="assets/js/script.js"></script>
+<script src="assets/js/payhere.js"></script>
+
 </body>
 
 </html>

@@ -24,7 +24,7 @@ if (isset($_SESSION["user"])) {
                     <ul class="header-top-list">
                         <li><a href="login.php"><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;Login</a></li>
                         <li><a href="register.php"><i class="fas fa-user-plus"></i>&nbsp;&nbsp;Register</a></li>
-                        <li><a href="contact.html"><i class="fas fa-phone-alt"></i>&nbsp;&nbsp;contact us</a></li>
+                        <li><a href="contact.php"><i class="fas fa-phone-alt"></i>&nbsp;&nbsp;contact us</a></li>
                     </ul>
                     <?php
                 } else {
@@ -35,7 +35,7 @@ if (isset($_SESSION["user"])) {
                                 out
                             </button>
                         </li>
-                        <li><a href="contact.html"><i class="fas fa-phone-alt"></i>&nbsp;&nbsp;contact us</a></li>
+                        <li><a href="contact.php"><i class="fas fa-phone-alt"></i>&nbsp;&nbsp;contact us</a></li>
                     </ul>
                     <?php
                 }
