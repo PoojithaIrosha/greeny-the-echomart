@@ -73,12 +73,6 @@ if (isset($_SESSION["user"])) {
                      data-bs-toggle="dropdown"
                      aria-expanded="false"/>
                 <span><?= (isset($user)) ? $user["fname"] . " " . $user["lname"] : "Welcome" ?></span>
-                <!--Dropdown-->
-                <!--<ul class="dropdown-menu">-->
-                <!--    <li><a class="dropdown-item" href="#">My Account</a></li>-->
-                <!--    <li><a class="dropdown-item" href="#">Another action</a></li>-->
-                <!--    <li><a class="dropdown-item" href="#">Something else here</a></li>-->
-                <!--</ul>-->
             </div>
 
             <form method="get" action="shop.php" class="header-form">
@@ -99,12 +93,16 @@ if (isset($_SESSION["user"])) {
                 <button class="header-widget header-cart" title="Cartlist">
                     <i class="fas fa-shopping-basket"></i>
                     <?php
-                    $cart_rs = Database::search("SELECT * FROM `cart` WHERE `user_email` = '" . $user["email"] . "'");
+                    $cart_rs = Database::search("SELECT *, cart.qty as qty FROM `cart` JOIN product p on p.id = cart.product_id WHERE `user_email` = '" . $user["email"] . "'");
+                    $total = 0;
+                    while ($cart = $cart_rs->fetch_assoc()) {
+                        $total += $cart['qty'] * $cart["price"];
+                    }
                     ?>
                     <sup id="no_of_products_in_cart"><?= $cart_rs->num_rows ?></sup>
                     <span>
                         total price
-                        <small>$345.00</small>
+                        <small>Rs.<?= $total ?></small>
                     </span>
                 </button>
             </div>

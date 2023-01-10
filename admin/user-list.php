@@ -13,7 +13,6 @@ if (!isset($_SESSION["admin"])) {
 
 <head>
     <meta charset="utf-8">
-    <meta name="author" content="Softnio">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Multi-purpose admin dashboard template that especially build for programmers.">
     <title>Admin - Customers</title>

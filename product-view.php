@@ -140,28 +140,47 @@ if ($rs->num_rows == 1) {
                             <?= $data["description"] ?>
                         </p>
 
-                        <div class="product-action2">
-                            <button onclick="decrement_qty()" title="Quantity Minus">
-                                <i class="icofont-minus"></i>
-                            </button>
-                            <input class="action-input" title="Quantity Number" type="text" name="quantity"
-                                   id="qtyInput" value="1" onkeyup="check_qty()"/>
-                            <button onclick="increment_qty()" title="Quantity Plus">
-                                <i class="icofont-plus"></i>
-                            </button>
-                        </div>
+                        <?php
 
-                        <div class="details-add-group mt-3">
-                            <button onclick="add_to_cart(<?= $id ?>)" class="product-add" title="Add to Cart">
-                                <i class="fas fa-shopping-cart"></i>
-                                <span>add to cart</span>
-                            </button>
-                        </div>
-                        <div class="details-action-group">
-                            <button class="details-wish wish" title="Add Your Wishlist"
-                                    onclick="add_to_wishlist(<?= $id ?>)"><i
-                                        class="icofont-heart"></i><span>add to wish</span></button>
-                        </div>
+                        if ($data["qty"] > 0) {
+                            ?>
+                            <div class="product-action2">
+                                <button onclick="decrement_qty()" title="Quantity Minus">
+                                    <i class="icofont-minus"></i>
+                                </button>
+                                <input class="action-input" title="Quantity Number" type="text" name="quantity"
+                                       id="qtyInput" value="1" onkeyup="check_qty()"/>
+                                <button onclick="increment_qty()" title="Quantity Plus">
+                                    <i class="icofont-plus"></i>
+                                </button>
+                            </div>
+
+                            <div class="details-add-group mt-3">
+                                <button onclick="add_to_cart(<?= $id ?>)" class="product-add" title="Add to Cart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>add to cart</span>
+                                </button>
+                            </div>
+                            <div class="details-action-group">
+                                <button class="details-wish wish" title="Add Your Wishlist"
+                                        onclick="add_to_wishlist(<?= $id ?>)"><i
+                                            class="icofont-heart"></i><span>add to wish</span></button>
+                            </div>
+
+                            <?php
+                        } else {
+                            ?>
+                            <div class="details-add-group mt-3">
+                                <button class="product-add" title="Add to Cart">
+                                    <i class="fas fa-shopping-cart"></i>
+                                    <span>Out Of Stock</span>
+                                </button>
+                            </div>
+                            <?php
+                        }
+                        ?>
+
+
                     </div>
                 </div>
             </div>

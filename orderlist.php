@@ -76,137 +76,147 @@ $user = $_SESSION['user'];
                 <?php
 
                 $invoiceRs = Database::search("SELECT * FROM invoice WHERE user_email='" . $user['email'] . "'");
-                while ($invoiceData = $invoiceRs->fetch_assoc()) {
-                    ?>
+                if ($invoiceRs->num_rows > 0) {
+                    while ($invoiceData = $invoiceRs->fetch_assoc()) {
+                        ?>
 
 
-                    <div class="orderlist">
-                        <div class="orderlist-head">
-                            <h5>order <?= $invoiceData['order_id'] ?></h5>
-                        </div>
+                        <div class="orderlist">
+                            <div class="orderlist-head">
+                                <h5>order <?= $invoiceData['order_id'] ?></h5>
+                            </div>
 
-                        <div class="orderlist-body">
-                            <div class="row">
+                            <div class="orderlist-body">
+                                <div class="row">
 
-                                <div class="col-lg-5">
-                                    <ul class="orderlist-details">
-                                        <li>
-                                            <h6>order id</h6>
-                                            <p><?= $invoiceData['order_id'] ?></p>
-                                        </li>
-                                        <li>
-                                            <h6>Total Item</h6>
-                                            <p><?= Database::search("SELECT * FROM invoice_item WHERE invoice_order_id = '" . $invoiceData['order_id'] . "'")->num_rows ?></p>
-                                        </li>
-                                        <li>
-                                            <h6>Order Time</h6>
-                                            <p><?= $invoiceData['date'] ?></p>
-                                        </li>
+                                    <div class="col-lg-5">
+                                        <ul class="orderlist-details">
+                                            <li>
+                                                <h6>order id</h6>
+                                                <p><?= $invoiceData['order_id'] ?></p>
+                                            </li>
+                                            <li>
+                                                <h6>Total Item</h6>
+                                                <p><?= Database::search("SELECT * FROM invoice_item WHERE invoice_order_id = '" . $invoiceData['order_id'] . "'")->num_rows ?></p>
+                                            </li>
+                                            <li>
+                                                <h6>Order Time</h6>
+                                                <p><?= $invoiceData['date'] ?></p>
+                                            </li>
 
-                                    </ul>
-                                </div>
-                                <div class="col-lg-4">
-                                    <ul class="orderlist-details">
-                                        <li>
-                                            <h6>Sub Total</h6>
-                                            <p>
-                                                Rs.<?= $invoiceData['amount'] + ($invoiceData['amount'] / 100) * 15 ?></p>
-                                        </li>
-                                        <li>
-                                            <h6>Discount</h6>
-                                            <p>Rs.<?= ($invoiceData['amount'] / 100) * 15 ?></p>
-                                        </li>
-                                        <li>
-                                            <h6>Total<small>(Incl. VAT)</small></h6>
-                                            <p>Rs.<?= $invoiceData['amount'] ?></p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="orderlist-deliver">
-                                        <?php
-                                        $addressRs = Database::search("SELECT *, c.name as cname FROM address JOIN city c on address.city_id = c.id WHERE user_email = '" . $invoiceData['user_email'] . "'");
-                                        $address = $addressRs->fetch_assoc();
-                                        ?>
-                                        <h6>Delivery location</h6>
-                                        <p><?= $address['line1'] . ', ' . $address['line2'] . ', ' . $address['cname'] ?></p>
+                                        </ul>
                                     </div>
-                                </div>
-
-                                <div class="col-lg-12">
-                                    <div class="account-card">
-                                        <div class="account-title">
-                                            <h4>Your order</h4>
+                                    <div class="col-lg-4">
+                                        <ul class="orderlist-details">
+                                            <li>
+                                                <h6>Sub Total</h6>
+                                                <p>
+                                                    Rs.<?= $invoiceData['amount'] + ($invoiceData['amount'] / 100) * 15 ?></p>
+                                            </li>
+                                            <li>
+                                                <h6>Discount</h6>
+                                                <p>Rs.<?= ($invoiceData['amount'] / 100) * 15 ?></p>
+                                            </li>
+                                            <li>
+                                                <h6>Total<small>(Incl. VAT)</small></h6>
+                                                <p>Rs.<?= $invoiceData['amount'] ?></p>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="col-lg-3">
+                                        <div class="orderlist-deliver">
+                                            <?php
+                                            $addressRs = Database::search("SELECT *, c.name as cname FROM address JOIN city c on address.city_id = c.id WHERE user_email = '" . $invoiceData['user_email'] . "'");
+                                            $address = $addressRs->fetch_assoc();
+                                            ?>
+                                            <h6>Delivery location</h6>
+                                            <p><?= $address['line1'] . ', ' . $address['line2'] . ', ' . $address['cname'] ?></p>
                                         </div>
-                                        <div class="account-content">
-                                            <div class="table-scroll">
-                                                <table class="table-list">
-                                                    <thead>
-                                                    <tr>
-                                                        <th scope="col">Serial</th>
-                                                        <th scope="col">Product</th>
-                                                        <th scope="col">Name</th>
-                                                        <th scope="col">Price</th>
-                                                        <th scope="col">brand</th>
-                                                        <th scope="col">quantity</th>
-                                                        <th scope="col">action</th>
-                                                    </tr>
-                                                    </thead>
-                                                    <tbody>
+                                    </div>
 
-                                                    <?php
-
-                                                    $invoiceItemRs = Database::search("SELECT *, p.id as pid, b.name as brand, invoice_item.qty as qty FROM invoice_item JOIN product p on p.id = invoice_item.product_id JOIN brand b on b.id = p.brand_id WHERE invoice_order_id='" . $invoiceData["order_id"] . "'");
-
-                                                    while ($InvItem = $invoiceItemRs->fetch_assoc()) {
-                                                        ?>
-                                                        <tr>
-                                                            <td class="table-serial">
-                                                                <h6><?= $InvItem["pid"] ?></h6>
-                                                            </td>
-                                                            <td class="table-image">
-                                                                <?php
-                                                                $product_img_rs = Database::search("SELECT * FROM product_images WHERE product_id = '${InvItem['pid']}' LIMIT 1");
-                                                                $product_img_data = $product_img_rs->fetch_assoc();
-                                                                ?>
-                                                                <img src="<?= $product_img_data['code'] ?>"
-                                                                     alt="product">
-                                                            </td>
-                                                            <td class="table-name">
-                                                                <h6><?= $InvItem["title"] ?></h6>
-                                                            </td>
-                                                            <td class="table-price">
-                                                                <h6>Rs.<?= $InvItem["price"] * $InvItem["qty"] ?>
-                                                                    .00</h6>
-                                                            </td>
-                                                            <td class="table-brand">
-                                                                <h6><?= $InvItem["brand"] ?></h6>
-                                                            </td>
-                                                            <td class="table-quantity">
-                                                                <h6><?= $InvItem["qty"] ?>
-                                                                    <small><?= $InvItem["unit"] ?></small></h6>
-                                                            </td>
-                                                            <td class="table-action">
-                                                                <button class="trash"
-                                                                        onclick="">
-                                                                    <i class="icofont-trash"></i>
-                                                                </button>
-                                                            </td>
-                                                        </tr>
-                                                        <?php
-                                                    }
-                                                    ?>
-
-                                                    </tbody>
-                                                </table>
+                                    <div class="col-lg-12">
+                                        <div class="account-card">
+                                            <div class="account-title">
+                                                <h4>Your order</h4>
                                             </div>
+                                            <div class="account-content">
+                                                <div class="table-scroll">
+                                                    <table class="table-list">
+                                                        <thead>
+                                                        <tr>
+                                                            <th scope="col">Serial</th>
+                                                            <th scope="col">Product</th>
+                                                            <th scope="col">Name</th>
+                                                            <th scope="col">Price</th>
+                                                            <th scope="col">brand</th>
+                                                            <th scope="col">quantity</th>
+                                                            <th scope="col">action</th>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
 
+                                                        <?php
+
+                                                        $invoiceItemRs = Database::search("SELECT *, p.id as pid, b.name as brand, invoice_item.qty as qty FROM invoice_item JOIN product p on p.id = invoice_item.product_id JOIN brand b on b.id = p.brand_id WHERE invoice_order_id='" . $invoiceData["order_id"] . "'");
+
+                                                        while ($InvItem = $invoiceItemRs->fetch_assoc()) {
+                                                            ?>
+                                                            <tr>
+                                                                <td class="table-serial">
+                                                                    <h6><?= $InvItem["pid"] ?></h6>
+                                                                </td>
+                                                                <td class="table-image">
+                                                                    <?php
+                                                                    $product_img_rs = Database::search("SELECT * FROM product_images WHERE product_id = '${InvItem['pid']}' LIMIT 1");
+                                                                    $product_img_data = $product_img_rs->fetch_assoc();
+                                                                    ?>
+                                                                    <img src="<?= $product_img_data['code'] ?>"
+                                                                         alt="product">
+                                                                </td>
+                                                                <td class="table-name">
+                                                                    <h6><?= $InvItem["title"] ?></h6>
+                                                                </td>
+                                                                <td class="table-price">
+                                                                    <h6>Rs.<?= $InvItem["price"] * $InvItem["qty"] ?>
+                                                                        .00</h6>
+                                                                </td>
+                                                                <td class="table-brand">
+                                                                    <h6><?= $InvItem["brand"] ?></h6>
+                                                                </td>
+                                                                <td class="table-quantity">
+                                                                    <h6><?= $InvItem["qty"] ?>
+                                                                        <small><?= $InvItem["unit"] ?></small></h6>
+                                                                </td>
+                                                                <td class="table-action">
+                                                                    <button class="trash"
+                                                                            onclick="">
+                                                                        <i class="icofont-trash"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            <?php
+                                                        }
+                                                        ?>
+
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <?php
+                    }
+                } else {
+                    ?>
+
+                    <div>
+                        <h2 class="text-center text-danger">No Payment Done Yet</h2>
                     </div>
+
                     <?php
                 }
                 ?>

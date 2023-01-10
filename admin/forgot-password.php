@@ -3,7 +3,6 @@
 <!-- Mirrored from html.nioboard.themenio.com/auths/auth-reset-classic.php by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 06 Jan 2023 17:29:16 GMT -->
 <head>
     <meta charset="utf-8">
-    <meta name="author" content="Softnio">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Multi-purpose admin dashboard template that especially build for programmers.">
     <title>Greeny - Admin Forgot Password</title>

@@ -253,7 +253,8 @@ $b = array();
                                             Available</small>
                                     </h6>
                                     <!-- Buy Now Button -->
-                                    <a href="product-view.php?pid=<?= $data["pid"] ?>" class="product-add">
+                                    <a href='<?= ($data['qty'] != 0) ? "product-view.php?pid=" . $data["pid"] . "" : "javascript:void()" ?>'
+                                       class="product-add">
                                         <i class="fas fa-shopping-bag"></i>
                                         <span>Buy Now</span>
                                     </a>

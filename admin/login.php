@@ -22,7 +22,6 @@ if (isset($_COOKIE["admin_password"])) {
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="author" content="Softnio">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="Multi-purpose admin dashboard template that especially build for programmers.">
     <title>Admin - Login</title>

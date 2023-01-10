@@ -230,11 +230,12 @@
                                 </span>
                                 </h6>
                                 <h6 class="mb-2">
-                                    <small class="text-muted"><?= $data["qty"] . " " . $data["unit_name"] ?>
-                                        Available</small>
+                                    <small class="text-muted"><?= ($data['qty'] != 0) ? $data["qty"] . " " . $data["unit_name"] . " Available" : "Out of Stock" ?>
+                                    </small>
                                 </h6>
                                 <!-- Buy Now Button -->
-                                <a href="product-view.php?pid=<?= $data["pid"] ?>" class="product-add">
+                                <a href='<?= ($data['qty'] != 0) ? "product-view.php?pid=" . $data["pid"] . "" : "javascript:void()" ?>'
+                                   class="product-add">
                                     <i class="fas fa-shopping-bag"></i>
                                     <span>Buy Now</span>
                                 </a>
