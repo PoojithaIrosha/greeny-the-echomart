@@ -224,6 +224,14 @@ function increment_qty() {
     document.getElementById("qtyInput").value = newVal;
 }
 
+function check_qty() {
+    let qty = document.getElementById('qtyInput').value;
+
+    if (qty.match(/-[0-9]*/gm)) {
+        document.getElementById('qtyInput').value = 1;
+    }
+}
+
 function add_to_cart(id) {
     const qty = document.getElementById("qtyInput");
 

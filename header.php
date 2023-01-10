@@ -122,10 +122,9 @@ if (isset($_SESSION["user"])) {
                             <a class="navbar-link dropdown-arrow" href="#">My Account</a>
                             <ul class="dropdown-position-list">
                                 <li><a href="profile.php">Profile</a></li>
-                                <li><a href="#">Wallet</a></li>
-                                <li><a href="#">Wishlist</a></li>
-                                <li><a href="#">Shopping Cart</a></li>
-                                <li><a href="#">Order History</a></li>
+                                <li><a href="wishlist.php">Wishlist</a></li>
+                                <li><a href="checkout.php">Shopping Cart</a></li>
+                                <li><a href="orderlist.php">Order History</a></li>
                             </ul>
                         </li>
                         <li class="navbar-item dropdown">

@@ -145,7 +145,7 @@ if ($rs->num_rows == 1) {
                                 <i class="icofont-minus"></i>
                             </button>
                             <input class="action-input" title="Quantity Number" type="text" name="quantity"
-                                   id="qtyInput" value="1"/>
+                                   id="qtyInput" value="1" onkeyup="check_qty()"/>
                             <button onclick="increment_qty()" title="Quantity Plus">
                                 <i class="icofont-plus"></i>
                             </button>

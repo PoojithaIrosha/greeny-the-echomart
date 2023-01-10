@@ -271,7 +271,7 @@
                     <li><a href="wallet.html">wallet</a></li>
                     <li><a href="wishlist.php">wishlist</a></li>
                     <li><a href="checkout.php">checkout</a></li>
-                    <li><a href="orderlist.html">order history</a></li>
+                    <li><a href="orderlist.php">order history</a></li>
                     <li><a href="invoice.php">order invoice</a></li>
                 </ul>
             </li>

@@ -8,7 +8,7 @@
     <meta name="title" content="greeny - Ecommerce Food Store HTML Template">
     <meta name="keywords"
           content="organic, food, shop, ecommerce, store, html, bootstrap, template, agriculture, vegetables, products, farm, grocery, natural, online">
-    <title>Greeny - Coming Soon</title>
+    <title>Greeny - 404 Error</title>
     <link rel="icon" href="assets/images/favicon.png">
     <link rel="stylesheet" href="assets/fonts/flaticon/flaticon.css">
     <link rel="stylesheet" href="assets/fonts/icofont/icofont.min.css">
@@ -18,33 +18,43 @@
     <link rel="stylesheet" href="assets/vendor/niceselect/nice-select.min.css">
     <link rel="stylesheet" href="assets/vendor/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="assets/css/main.css">
-    <link rel="stylesheet" href="assets/css/coming-soon.css">
+    <link rel="stylesheet" href="assets/css/error.css">
 </head>
+
 <body>
-<section class="coming-part">
+<div class="backdrop"></div>
+
+<!-- Header -->
+<?php require "header.php" ?>
+<!-- Header -->
+
+
+<!-- mobile -->
+<?php require "mobile_aside.php" ?>
+<!-- mobile -->
+
+<div class="mobile-menu"><a href="index.php" title="Home Page"><i
+                class="fas fa-home"></i><span>Home</span></a>
+    <button class="cate-btn" title="Category List"><i
+                class="fas fa-list"></i><span>category</span></button>
+    <button class="cart-btn" title="Cartlist"><i
+                class="fas fa-shopping-basket"></i><span>cartlist</span><sup>9+</sup></button>
+    <a href="wishlist.php"
+       title="Wishlist"><i class="fas fa-heart"></i><span>wishlist</span><sup>0</sup></a><a href="compare.html"
+                                                                                            title="Compare List"><i
+                class="fas fa-random"></i><span>compare</span><sup>0</sup></a></div>
+<section class="error-part">
     <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-7">
-                <div class="coming-content"><h1 class="coming-title">coming soon...</h1>
-                    <div class="countdown coming-clock" data-countdown="2022/12/22"><span class="countdown-time"><span>00</span><small>days</small></span><span
-                            class="countdown-time"><span>00</span><small>hours</small></span><span
-                            class="countdown-time"><span>00</span><small>minutes</small></span><span
-                            class="countdown-time"><span>00</span><small>seconds</small></span></div>
-                    <h3 class="coming-subtitle">We are currently working on an awesome new site. Subscribe to our
-                        newsletter to stay updated.</h3>
-                    <form class="coming-form"><input type="text" placeholder="enter your email">
-                        <button><i class="icofont-paper-plane"></i></button>
-                    </form>
-                    <div class="coming-social"><a class="icofont-facebook" href="#"></a><a class="icofont-twitter"
-                                                                                           href="#"></a><a
-                            class="icofont-linkedin" href="#"></a><a class="icofont-instagram" href="#"></a><a
-                            class="icofont-pinterest" href="#"></a></div>
-                </div>
-            </div>
-            <div class="col-lg-5"><img class="img-fluid" src="assets/images/coming-soon.png" alt="coming-soon"></div>
-        </div>
+        <h1>404 | Not Found</h1><img class="img-fluid" src="assets/images/error.png" alt="error">
+        <h3>ooopps! this page can't be found.</h3>
+        <p>It looks like nothing was found at this location.</p><a href="index.php">go to home</a>
     </div>
 </section>
+
+<!-- Footer -->
+<?php require "footer.php" ?>
+<!-- Footer -->
+
 <script src="assets/vendor/bootstrap/jquery-1.12.4.min.js"></script>
 <script src="assets/vendor/bootstrap/popper.min.js"></script>
 <script src="assets/vendor/bootstrap/bootstrap.min.js"></script>
@@ -59,5 +69,6 @@
 <script src="assets/js/slick.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
-<!-- Mirrored from mironmahmud.com/greeny/assets/ltr/coming-soon.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Aug 2022 06:12:28 GMT -->
+<!-- Mirrored from mironmahmud.com/greeny/assets/ltr/error.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Aug 2022 06:12:29 GMT -->
+
 </html>
