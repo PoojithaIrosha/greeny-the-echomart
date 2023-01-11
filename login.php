@@ -64,9 +64,7 @@ if (isset($_COOKIE["password"])) {
                             <p>or</p>
                         </div>
                         <div class="user-form">
-                            <div class="mb-2">
-                                <span id="err-msg" class="text-danger fw-bold" style="font-size: 13px"></span>
-                            </div>
+
                             <div class="form-group">
                                 <input id="email" type="email" class="form-control" placeholder="Enter your email"
                                        value="<?php echo $email; ?>">
@@ -74,6 +72,9 @@ if (isset($_COOKIE["password"])) {
                             <div class="form-group">
                                 <input id="pwd" type="password" class="form-control" placeholder="Enter your password"
                                        value="<?php echo $pwd; ?>">
+                            </div>
+                            <div class="mb-2">
+                                <span id="err-msg" class="text-danger fw-bold" style="font-size: 13px"></span>
                             </div>
                             <div class="form-check mb-1">
                                 <input id="rmb_me" class="form-check-input"

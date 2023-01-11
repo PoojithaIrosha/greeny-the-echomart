@@ -328,6 +328,5 @@ $b = array();
 <script src="assets/js/main.js"></script>
 <script src="assets/js/script.js"></script>
 </body>
-<!-- Mirrored from mironmahmud.com/greeny/assets/ltr/shop.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Aug 2022 06:12:08 GMT -->
 
 </html>

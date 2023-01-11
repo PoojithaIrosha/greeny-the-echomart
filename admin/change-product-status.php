@@ -13,6 +13,4 @@ if (isset($pId) && isset($checkedStatus)) {
         Database::iud("UPDATE product SET status_id = '2' WHERE id='${pId}'");
         echo "Product deactivated";
     }
-
-
 }

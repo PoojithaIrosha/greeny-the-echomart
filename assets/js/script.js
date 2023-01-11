@@ -22,7 +22,7 @@ function user_registration() {
             if (txt === "success") {
                 window.location = "login.php";
             } else {
-                alert(txt);
+                document.getElementById('err-msg').innerHTML = txt;
             }
         }
     };
@@ -331,7 +331,6 @@ function remove_mobile(id) {
 
     req.open("get", 'remove_mobile_number_process.php?id=' + id, true);
     req.send();
-
 }
 
 function add_new_contact() {
@@ -633,68 +632,4 @@ function calculate_total(delivery) {
     let total = parseInt(sub_total) + parseInt(delivery);
 
     document.getElementById("total").innerHTML = total.toString();
-}
-
-/*
-function checkout(contacts, addresses) {
-    const contact_list = JSON.parse(JSON.stringify(contacts));
-    const address_list = JSON.parse(JSON.stringify(addresses));
-
-    let selected_contact;
-    let selected_address;
-
-    contact_list.map((contact) => {
-        let div = document.getElementById(contact);
-
-        let classlist = div.classList;
-        classlist.forEach(c => {
-            if (c == "active") {
-                selected_contact = contact;
-            }
-        })
-    });
-
-    address_list.map((address) => {
-        let div = document.getElementById(address);
-
-        let classlist = div.classList;
-        classlist.forEach(c => {
-            if (c == "active") {
-                selected_address = address;
-            }
-        })
-    })
-
-    let contact_no = document.querySelector("#" + selected_contact + " p").innerHTML;
-    let address_id = document.querySelector("#" + selected_address + " span").innerHTML;
-
-    console.log(contact_no);
-    console.log(address_id);
-}*/
-
-function printInvoice(orderId) {
-
-    const req = new XMLHttpRequest();
-    req.onreadystatechange = () => {
-        if (req.readyState == 4) {
-            let email = req.responseText;
-
-            let form = new FormData();
-            form.append('email', email);
-
-            const req2 = new XMLHttpRequest();
-            req2.onreadystatechange = () => {
-                if (req2.readyState == 4) {
-                    // window.open(req2.responseText);
-                    console.log(req2.responseText);
-                }
-            }
-            req2.open('post', 'generate-invoice-pdf.php', true);
-            req2.send(form);
-        }
-    }
-    req.open('get', 'email-template.php?invoice=' + orderId, true);
-    req.send();
-
-
 }

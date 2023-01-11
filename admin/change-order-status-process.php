@@ -11,6 +11,4 @@ if ($invRs->num_rows > 0) {
         Database::iud("UPDATE invoice SET status = '1' WHERE order_id='${invId}'");
         echo "success";
     }
-
-
 }

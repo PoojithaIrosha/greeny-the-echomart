@@ -55,9 +55,9 @@ const changeProductStatus = (pid) => {
             let txt = request.responseText;
             setTimeout(() => {
                 alert(txt);
-            }, 300)
+            }, 300);
         }
-        ;
+
     }
 
     request.open("GET", "change-product-status.php?pid=" + pid + "&checked=" + check.checked, true);
@@ -109,7 +109,6 @@ const uploadProductImage = (pid) => {
 
     request.open("post", "upload-product-image-process.php", true);
     request.send(form);
-
 }
 
 const updateProduct = (pid) => {

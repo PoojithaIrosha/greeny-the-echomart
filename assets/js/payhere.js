@@ -108,25 +108,3 @@ function checkout(contacts, addresses) {
 
     }
 };
-
-/*
-// Put the payment variables here
-var payment = {
-    "sandbox": true, "merchant_id": "1221764",    // Replace your Merchant ID
-    "return_url": "",     // Important
-    "cancel_url": "",     // Important
-    "notify_url": "", "order_id": "", // orderId
-    "items": "", // Item name
-    "amount": "", // price
-    "currency": "LKR", // currenct
-    "first_name": "Saman", // Customer's first name
-    "last_name": "Perera", // Customer's last name
-    "email": "samanp@gmail.com", // Customer's email
-    "phone": "0771234567", // mobile
-    "address": "No.1, Galle Road", // address
-    "city": "Colombo", // city
-    "country": "Sri Lanka", // country
-};
-
-payhere.startPayment(payment);
-*/

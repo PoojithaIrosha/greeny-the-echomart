@@ -443,6 +443,5 @@ if (!isset($_SESSION["user"])) {
 <script src="assets/js/slick.js"></script>
 <script src="assets/js/main.js"></script>
 </body>
-<!-- Mirrored from mironmahmud.com/greeny/assets/ltr/profile.php by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 16 Aug 2022 06:12:21 GMT -->
 
 </html>

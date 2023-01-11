@@ -64,7 +64,7 @@ require "MySQL.php";
                                 <input id="mobile" type="text" class="form-control"
                                        placeholder="Enter your mobile number">
                             </div>
-                            <div class="form-group">
+                            <div class="form-group mb-2">
                                 <select id="gender" class="form-select">
                                     <option value="0">Select Gender</option>
 
@@ -79,6 +79,9 @@ require "MySQL.php";
                                     ?>
 
                                 </select>
+                            </div>
+                            <div class="mb-2">
+                                <span id="err-msg" class="text-danger fw-bold" style="font-size: 13px"></span>
                             </div>
                             <div class="form-button">
                                 <button onclick="user_registration()">register</button>
