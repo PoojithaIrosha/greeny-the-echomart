@@ -144,111 +144,123 @@
 </section>
 <section class="section recent-part">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-heading">
-                    <h2>New Items</h2>
+
+        <?php
+
+        $categoryRs = Database::search("SELECT DISTINCT c.id,c.name as cname FROM product JOIN category c on product.category_id = c.id");
+        if ($categoryRs->num_rows > 0) {
+            while ($category = $categoryRs->fetch_assoc()) {
+                ?>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="section-heading">
+                            <h2>New Items</h2>
+                            <h5><?= $category['cname'] ?></h5>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+                <div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
 
-            <?php
+                    <?php
 
-            require_once "MySQL.php";
+                    require_once "MySQL.php";
 
-            $rs = Database::search("SELECT *, product.id AS `pid` , unit.`name` AS `unit_name` FROM `product` INNER JOIN `status` ON product.status_id = `status`.status_id INNER JOIN unit ON product.unit_id = unit.id WHERE product.status_id = '1' LIMIT 10;");
-            while ($data = $rs->fetch_assoc()) {
+                    $rs = Database::search("SELECT *, product.id AS `pid` , unit.`name` AS `unit_name` FROM `product` INNER JOIN `status` ON product.status_id = `status`.status_id INNER JOIN unit ON product.unit_id = unit.id WHERE product.status_id = '1' && product.category_id = '" . $category['id'] . "' LIMIT 10;");
+                    while ($data = $rs->fetch_assoc()) {
 
-                if ($data["status_id"] == 1) {
+                        if ($data["status_id"] == 1) {
 
-                    ?>
-                    <!-- Product -->
-                    <div class="col">
-                        <div class="product-card">
-                            <div class="product-media">
-                                <div class="product-label">
-                                    <label class="label-text new">new</label>
-                                </div>
+                            ?>
+                            <!-- Product -->
+                            <div class="col">
+                                <div class="product-card">
+                                    <div class="product-media">
+                                        <div class="product-label">
+                                            <label class="label-text new">new</label>
+                                        </div>
 
-                                <?php
-                                $email = "";
-                                if (isset($_SESSION["user"]["email"])) {
-                                    $email = $_SESSION["user"]["email"];
-                                }
+                                        <?php
+                                        $email = "";
+                                        if (isset($_SESSION["user"]["email"])) {
+                                            $email = $_SESSION["user"]["email"];
+                                        }
 
-                                $rs2 = Database::search("SELECT * FROM `wishlist` WHERE `user_email`='" . $email . "' && `product_id`='" . $data['pid'] . "'");
-                                if ($rs2->num_rows == 1) { //isset($_SESSION["user"]) &&
+                                        $rs2 = Database::search("SELECT * FROM `wishlist` WHERE `user_email`='" . $email . "' && `product_id`='" . $data['pid'] . "'");
+                                        if ($rs2->num_rows == 1) { //isset($_SESSION["user"]) &&
 
-                                    ?>
-                                    <button id="wish_btn<?= $data["pid"]; ?>" class="product-wish active"
-                                            onclick="add_to_wishlist(<?= $data["pid"] ?>)">
-                                        <i class="fas fa-heart"></i>
-                                    </button>
-                                    <?php
+                                            ?>
+                                            <button id="wish_btn<?= $data["pid"]; ?>" class="product-wish active"
+                                                    onclick="add_to_wishlist(<?= $data["pid"] ?>)">
+                                                <i class="fas fa-heart"></i>
+                                            </button>
+                                            <?php
 
-                                } else {
-                                    ?>
-                                    <button id="wish_btn<?= $data["pid"]; ?>"
-                                            onclick="add_to_wishlist(<?= $data["pid"] ?>)" class="product-wish">
-                                        <i class="fas fa-heart"></i>
-                                    </button>
-                                    <?php
-                                }
-                                ?>
+                                        } else {
+                                            ?>
+                                            <button id="wish_btn<?= $data["pid"]; ?>"
+                                                    onclick="add_to_wishlist(<?= $data["pid"] ?>)" class="product-wish">
+                                                <i class="fas fa-heart"></i>
+                                            </button>
+                                            <?php
+                                        }
+                                        ?>
 
 
-                                <a class="product-image" href="product-view.php?pid=<?= $data["pid"] ?>">
+                                        <a class="product-image" href="product-view.php?pid=<?= $data["pid"] ?>">
 
-                                    <?php
-                                    $img_rs = Database::search("SELECT * FROM `product_images` WHERE `product_id` = '" . $data["pid"] . "' LIMIT 1");
-                                    $img_data = $img_rs->fetch_assoc();
-                                    ?>
-                                    <img src="<?= $img_data["code"] ?>" alt="product"/>
-                                </a>
-                            </div>
-                            <div class="product-content">
-                                <!--TODO: Add ratings-->
-                                <!-- Ratings -->
-                                <div class="product-rating">
-                                    <i class="active icofont-star"></i>
-                                    <i class="active icofont-star"></i>
-                                    <i class="active icofont-star"></i>
-                                    <i class="icofont-star"></i>
-                                    <i class="icofont-star"></i>
-                                </div>
-                                <!-- Title -->
-                                <h6 class="product-name">
-                                    <a href="product-view.php?pid=<?= $data["pid"] ?>"><?= $data["title"] ?></a>
-                                </h6>
-                                <!-- Price -->
-                                <h6 class="product-price d-flex flex-column align-items-center">
-                                    <del><?= "Rs." . number_format((($data["price"] / 100) * 25) + $data["price"]) ?></del>
-                                    <span>
+                                            <?php
+                                            $img_rs = Database::search("SELECT * FROM `product_images` WHERE `product_id` = '" . $data["pid"] . "' LIMIT 1");
+                                            $img_data = $img_rs->fetch_assoc();
+                                            ?>
+                                            <img src="<?= $img_data["code"] ?>" alt="product"/>
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <!--TODO: Add ratings-->
+                                        <!-- Ratings -->
+                                        <div class="product-rating">
+                                            <i class="active icofont-star"></i>
+                                            <i class="active icofont-star"></i>
+                                            <i class="active icofont-star"></i>
+                                            <i class="icofont-star"></i>
+                                            <i class="icofont-star"></i>
+                                        </div>
+                                        <!-- Title -->
+                                        <h6 class="product-name">
+                                            <a href="product-view.php?pid=<?= $data["pid"] ?>"><?= $data["title"] ?></a>
+                                        </h6>
+                                        <!-- Price -->
+                                        <h6 class="product-price d-flex flex-column align-items-center">
+                                            <del><?= "Rs." . number_format((($data["price"] / 100) * 25) + $data["price"]) ?></del>
+                                            <span>
                                     <?= "Rs." . number_format($data["price"]) ?>
                                     <small>/piece</small>
                                 </span>
-                                </h6>
-                                <h6 class="mb-2">
-                                    <small class="text-muted"><?= ($data['qty'] != 0) ? $data["qty"] . " " . $data["unit_name"] . " Available" : "Out of Stock" ?>
-                                    </small>
-                                </h6>
-                                <!-- Buy Now Button -->
-                                <a href='<?= ($data['qty'] != 0) ? "product-view.php?pid=" . $data["pid"] . "" : "javascript:void()" ?>'
-                                   class="product-add">
-                                    <i class="fas fa-shopping-bag"></i>
-                                    <span>Buy Now</span>
-                                </a>
+                                        </h6>
+                                        <h6 class="mb-2">
+                                            <small class="text-muted"><?= ($data['qty'] != 0) ? $data["qty"] . " " . $data["unit_name"] . " Available" : "Out of Stock" ?>
+                                            </small>
+                                        </h6>
+                                        <!-- Buy Now Button -->
+                                        <a href='<?= ($data['qty'] != 0) ? "product-view.php?pid=" . $data["pid"] . "" : "javascript:void()" ?>'
+                                           class="product-add">
+                                            <i class="fas fa-shopping-bag"></i>
+                                            <span>Buy Now</span>
+                                        </a>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                    <!-- Product -->
-                    <?php
-                }
-            }
-            ?>
+                            <!-- Product -->
+                            <?php
+                        }
+                    }
+                    ?>
 
-        </div>
+                </div>
+                <?php
+            }
+        }
+        ?>
 
     </div>
 </section>

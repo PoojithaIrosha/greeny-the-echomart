@@ -69,9 +69,9 @@ $b = array();
                     <form>
                         <div class="shop-widget-group">
                             <input type="text" placeholder="Min - 00" id="min_price"
-                                   onkeyup='do_filter(<?= json_encode($_SESSION["c"]) ?>,<?= json_encode($_SESSION["b"]) ?>, "<?= $_GET["search"] ?>", "0")'>
+                                   onkeyup='do_filter("<?= $_GET["search"] ?>", "0")'>
                             <input type="text" placeholder="Max - 5k" id="max_price"
-                                   onkeyup='do_filter(<?= json_encode($_SESSION["c"]) ?>,<?= json_encode($_SESSION["b"]) ?>, "<?= $_GET["search"] ?>", "0")'>
+                                   onkeyup='do_filter("<?= $_GET["search"] ?>", "0")'>
                         </div>
                         <button type="reset" class="shop-widget-btn">
                             <i class="fas fa-search"></i>
@@ -88,19 +88,21 @@ $b = array();
                             <?php
                             $category_rs = Database::search("SELECT * FROM category");
                             while ($category_data = $category_rs->fetch_assoc()) {
-                                $c[] = "cat_" . $category_data["id"];
+                                // $c[] = "cat_" . $category_data["id"];
                                 ?>
                                 <li>
                                     <div class="shop-widget-content">
-                                        <input type="checkbox" id="cat_<?= $category_data["id"] ?>"
-                                               onchange='do_filter(<?= json_encode($_SESSION["c"]) ?>,<?= json_encode($_SESSION["b"]) ?>, "<?= $_GET["search"] ?>", "0")'>
+                                        <input type="checkbox" class="category-input"
+                                               id="cat_<?= $category_data["id"] ?>"
+                                               onchange='do_filter("<?= $_GET["search"] ?>", "0")'
+                                               value="<?= $category_data["id"] ?>">
                                         <label for="cat_<?= $category_data["id"] ?>"><?= $category_data["name"] ?></label>
                                     </div>
                                     <span class="shop-widget-number"><i class="fas fa-dot-circle"></i></span>
                                 </li>
                                 <?php
                             }
-                            $_SESSION["c"] = $c;
+                            // $_SESSION["c"] = $c;
                             ?>
                         </ul>
                         <button onclick="window.location.reload()" class="shop-widget-btn">
@@ -117,19 +119,20 @@ $b = array();
                             <?php
                             $brand_rs = Database::search("SELECT * FROM brand");
                             while ($brand_data = $brand_rs->fetch_assoc()) {
-                                $b[] = "brand_" . $brand_data["id"];
+                                // $b[] = "brand_" . $brand_data["id"];
                                 ?>
                                 <li>
                                     <div class="shop-widget-content">
-                                        <input type="checkbox" id="brand_<?= $brand_data["id"] ?>"
-                                               onchange='do_filter(<?= json_encode($_SESSION["c"]) ?>,<?= json_encode($_SESSION["b"]) ?>, "<?= $_GET["search"] ?>", "0")'>
+                                        <input type="checkbox" class="brand-input" id="brand_<?= $brand_data["id"] ?>"
+                                               onchange='do_filter("<?= $_GET["search"] ?>", "0")'
+                                               value="<?= $brand_data["id"] ?>">
                                         <label for="brand_<?= $brand_data["id"] ?>"><?= $brand_data["name"] ?></label>
                                     </div>
                                     <span class="shop-widget-number"><i class="fas fa-neuter"></i></span>
                                 </li>
                                 <?php
                             }
-                            $_SESSION["b"] = $b;
+                            // $_SESSION["b"] = $b;
                             ?>
 
 
@@ -282,12 +285,21 @@ $b = array();
                                 <?php
 
                                 for ($x = 1; $x <= $no_of_pages; $x++) {
-                                    ?>
-                                    <li class="page-item">
-                                        <a class="page-link active" style="cursor: pointer"
-                                           href="shop.php?search=<?= $_GET["search"] ?>&page=<?= $x ?>"><?= $x ?></a>
-                                    </li>
-                                    <?php
+                                    if ($page == $x) {
+                                        ?>
+                                        <li class="page-item">
+                                            <a class="page-link active" style="cursor: pointer"
+                                               onclick='do_filter("<?= $search ?>", "<?= $x ?>")'><?= $x ?></a>
+                                        </li>
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <li class="page-item">
+                                            <a class="page-link" style="cursor: pointer"
+                                               onclick='do_filter("<?= $search ?>", "<?= $x ?>")'><?= $x ?></a>
+                                        </li>
+                                        <?php
+                                    }
                                 }
 
                                 ?>

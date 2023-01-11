@@ -567,26 +567,68 @@ function paginate(page, search) {
     req.send(form);
 }
 
-function do_filter(categories, brands, search, page) {
-    let c = JSON.parse(JSON.stringify(categories));
-    let b = JSON.parse(JSON.stringify(brands));
+// function do_filter(categories, brands, search, page) {
+//     let c = JSON.parse(JSON.stringify(categories));
+//     let b = JSON.parse(JSON.stringify(brands));
+//     let min_price = document.querySelector("#min_price");
+//     let max_price = document.querySelector("#max_price");
+//
+//     console.log(c)
+//     console.log(b)
+//
+//     let selected_categories = new Array();
+//     let selected_brands = new Array();
+//
+//     c.forEach((cat) => {
+//         if (document.getElementById(cat).checked == true) {
+//             selected_categories.push(cat);
+//         }
+//     });
+//
+//     b.forEach((br) => {
+//         if (document.getElementById(br).checked == true) {
+//             selected_brands.push(br);
+//         }
+//     });
+//
+//     let form = new FormData();
+//     form.append("categories", JSON.stringify(selected_categories));
+//     form.append("brands", JSON.stringify(selected_brands));
+//     form.append("min_price", min_price.value);
+//     form.append("max_price", max_price.value);
+//     form.append("search", search);
+//     form.append("page", page);
+//
+//     let req = new XMLHttpRequest();
+//     req.onreadystatechange = () => {
+//         if (req.readyState == 4) {
+//             let txt = req.responseText;
+//             document.getElementById("p_container").innerHTML = txt;
+//             // console.log(txt);
+//         }
+//     }
+//
+//     req.open('post', 'filter_products_process.php', true);
+//     req.send(form);
+// }
+
+function do_filter(search, page) {
     let min_price = document.querySelector("#min_price");
     let max_price = document.querySelector("#max_price");
+    let selected_categories = [];
+    let selected_brands = [];
 
-    let selected_categories = new Array();
-    let selected_brands = new Array();
-
-    c.forEach((cat) => {
-        if (document.getElementById(cat).checked == true) {
-            selected_categories.push(cat);
+    document.querySelectorAll(".category-input").forEach(e => {
+        if (e.checked) {
+            selected_categories.push(e.value);
         }
-    });
+    })
 
-    b.forEach((br) => {
-        if (document.getElementById(br).checked == true) {
-            selected_brands.push(br);
+    document.querySelectorAll(".brand-input").forEach(e => {
+        if (e.checked) {
+            selected_brands.push(e.value);
         }
-    });
+    })
 
     let form = new FormData();
     form.append("categories", JSON.stringify(selected_categories));
@@ -608,6 +650,7 @@ function do_filter(categories, brands, search, page) {
     req.open('post', 'filter_products_process.php', true);
     req.send(form);
 }
+
 
 function load_delivery_fee(did) {
     const req = new XMLHttpRequest();

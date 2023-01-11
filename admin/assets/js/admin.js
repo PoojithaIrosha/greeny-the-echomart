@@ -182,6 +182,7 @@ const addNewProductImage = () => {
         div.appendChild(img);
         div.addEventListener("dblclick", () => {
             div.remove();
+            prodImg.value = null;
         })
         document.getElementById("images-container").appendChild(div);
     }

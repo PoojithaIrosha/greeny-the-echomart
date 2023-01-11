@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <div class="nk-header nk-header-fixed">
     <div class="container-fluid">
         <div class="nk-header-wrap">
@@ -94,8 +98,8 @@
                                                                                                class="img-thumbnail">
                                     </div>
                                     <div class="media-text">
-                                        <div class="lead-text">Wesley Burland</div>
-                                        <span class="sub-text">Owner & Founder</span></div>
+                                        <div class="lead-text"><?= $_SESSION['admin']['fname'] . ' ' . $_SESSION['admin']['lname'] ?></div>
+                                        <span class="sub-text">Admin</span></div>
                                 </div>
                             </div>
                             <div class="dropdown-content dropdown-content-x-lg py-3 border-bottom border-light">

@@ -164,11 +164,12 @@ if (!isset($_SESSION["admin"])) {
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                            </div>
 
-                                                                <div class="col-lg-12">
-                                                                    <div class="form-group"><label
-                                                                                class="form-label">Description</label>
-                                                                        <div class="form-control-wrap">
+                                                            <div class="col-lg-12">
+                                                                <div class="form-group"><label
+                                                                            class="form-label">Description</label>
+                                                                    <div class="form-control-wrap">
                                                                                 <textarea class="form-control"
                                                                                           id="description" cols="30"
                                                                                           rows="10"></textarea>
@@ -209,17 +210,17 @@ if (!isset($_SESSION["admin"])) {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="gap-col">
-                                                    <ul class="d-flex align-items-center gap g-3">
-                                                        <li>
-                                                            <button class="btn btn-primary" onclick="addNewProduct()">
-                                                                Add new product
-                                                            </button>
-                                                        </li>
-                                                        <li>
-                                                            <a href="products.php" class="btn border-0">Cancel</a>
-                                                        </li>
-                                                    </ul>
+                                            <div class="gap-col mt-2">
+                                                <ul class="d-flex align-items-center gap g-3">
+                                                    <li>
+                                                        <button class="btn btn-primary" onclick="addNewProduct()">
+                                                            Add new product
+                                                        </button>
+                                                    </li>
+                                                    <li>
+                                                        <a href="products.php" class="btn border-0">Cancel</a>
+                                                    </li>
+                                                </ul>
                                                 </div>
                                             </div>
                                         </div>

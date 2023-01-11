@@ -19,24 +19,13 @@ if (!empty($min_price) && empty($max_price)) {
 }
 
 if (!empty($brands)) {
-    $brands_id_array = array();
-    foreach ($brands as $brand) {
-        $brand_exploded = explode("_", $brand);
-        $brands_id_array[] = $brand_exploded[1];
-    }
-    $imploded_brand_ids = implode(",", $brands_id_array);
-
+    $imploded_brand_ids = implode(',', $brands);
     $query .= "AND brand_id IN (${imploded_brand_ids}) ";
 }
 
 
 if (!empty($categories)) {
-    $category_id_array = array();
-    foreach ($categories as $cat) {
-        $cat_exploded = explode("_", $cat);
-        $category_id_array[] = $cat_exploded[1];
-    }
-    $cat_imploded = implode(",", $category_id_array);
+    $cat_imploded = implode(",", $categories);
     $query .= "AND category_id IN (${cat_imploded}) ";
 }
 
@@ -49,7 +38,7 @@ if (isset($_POST["page"]) && $_POST["page"] != '0') {
 $product_rs = Database::search($query);
 
 $no_of_products = $product_rs->num_rows;
-$results_per_page = 10;
+$results_per_page = 16;
 $no_of_pages = ceil($no_of_products / $results_per_page);
 $viewed_result_count = ((int)$page - 1) * $results_per_page;
 
@@ -166,7 +155,7 @@ if ($product_rs2->num_rows > 0) {
                 <ul class="pagination d-flex">
                     <li class="page-item">
                         <a class="page-link" style="cursor: pointer"
-                           onclick='do_filter(<?= json_encode($categories) ?>, <?= json_encode($brands) ?>, "<?= $search ?>", "<?= ($page <= 1) ? $page : ($page - 1) ?>")'>
+                           onclick='do_filter("<?= $search ?>", "<?= ($page <= 1) ? $page : ($page - 1) ?>")'>
                             <i class="fas fa-long-arrow-alt-left"></i>
                         </a>
                     </li>
@@ -174,19 +163,28 @@ if ($product_rs2->num_rows > 0) {
                     <?php
 
                     for ($x = 1; $x <= $no_of_pages; $x++) {
-                        ?>
-                        <li class="page-item">
-                            <a class="page-link active" style="cursor: pointer"
-                               onclick='do_filter(<?= json_encode($categories) ?>, <?= json_encode($brands) ?>, "<?= $search ?>", "<?= $x ?>")'><?= $x ?></a>
-                        </li>
-                        <?php
+                        if ($page == $x) {
+                            ?>
+                            <li class="page-item">
+                                <a class="page-link active" style="cursor: pointer"
+                                   onclick='do_filter("<?= $search ?>", "<?= $x ?>")'><?= $x ?></a>
+                            </li>
+                            <?php
+                        } else {
+                            ?>
+                            <li class="page-item">
+                                <a class="page-link" style="cursor: pointer"
+                                   onclick='do_filter("<?= $search ?>", "<?= $x ?>")'><?= $x ?></a>
+                            </li>
+                            <?php
+                        }
                     }
 
                     ?>
 
                     <li class="page-item">
                         <a class="page-link" style="cursor: pointer"
-                           onclick='do_filter(<?= json_encode($categories) ?>, <?= json_encode($brands) ?>, "<?= $search ?>", "<?= ($page >= $no_of_pages) ? $page : ($page + 1) ?>")'>
+                           onclick='do_filter("<?= $search ?>", "<?= ($page >= $no_of_pages) ? $page : ($page + 1) ?>")'>
                             <i class="fas fa-long-arrow-alt-right"></i>
                         </a>
                     </li>
@@ -206,5 +204,4 @@ if ($product_rs2->num_rows > 0) {
     <?php
 }
 ?>
-
 
