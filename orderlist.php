@@ -84,6 +84,11 @@ $user = $_SESSION['user'];
                         <div class="orderlist">
                             <div class="orderlist-head">
                                 <h5>order <?= $invoiceData['order_id'] ?></h5>
+                                <a class="btn btn-sm btn-inline"
+                                   href="email-template.php?invoice=<?= $invoiceData['order_id'] ?>">
+                                    <i class="icofont-download"></i>
+                                    <span>download invoice</span>
+                                </a>
                             </div>
 
                             <div class="orderlist-body">
@@ -150,7 +155,6 @@ $user = $_SESSION['user'];
                                                             <th scope="col">Price</th>
                                                             <th scope="col">brand</th>
                                                             <th scope="col">quantity</th>
-                                                            <th scope="col">action</th>
                                                         </tr>
                                                         </thead>
                                                         <tbody>
@@ -187,12 +191,7 @@ $user = $_SESSION['user'];
                                                                     <h6><?= $InvItem["qty"] ?>
                                                                         <small><?= $InvItem["unit"] ?></small></h6>
                                                                 </td>
-                                                                <td class="table-action">
-                                                                    <button class="trash"
-                                                                            onclick="">
-                                                                        <i class="icofont-trash"></i>
-                                                                    </button>
-                                                                </td>
+
                                                             </tr>
                                                             <?php
                                                         }
@@ -200,12 +199,14 @@ $user = $_SESSION['user'];
 
                                                         </tbody>
                                                     </table>
+
                                                 </div>
 
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
                         <?php

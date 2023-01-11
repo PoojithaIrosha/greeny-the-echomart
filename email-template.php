@@ -156,11 +156,12 @@ $orderId = $_GET['invoice'];
                 <ul class="p-3 mb-0">
                     <li class="d-flex mb-1">
                         <h6 class="text-capitalize" style="font-weight: 500; width: 250px;">Sub total:</h6>
-                        <p class="mb-0">Rs.<?= $invData['amount'] + ($invData['amount'] / 100) * 15 ?></p>
+                        <p class="mb-0">
+                            Rs.<?= $invData['amount'] + number_format(($invData['amount'] / 100) * 15) ?></p>
                     </li>
                     <li class="d-flex mb-1">
                         <h6 class="text-capitalize" style="font-weight: 500; width: 250px;">discount price:</h6>
-                        <p class="mb-0">Rs.<?= ($invData['amount'] / 100) * 15 ?></p>
+                        <p class="mb-0">Rs.<?= number_format(($invData['amount'] / 100) * 15) ?></p>
                     </li>
                     <li class="d-flex mb-1">
                         <h6 class="text-capitalize" style="font-weight: 500; width: 250px;">Total amount:</h6>
